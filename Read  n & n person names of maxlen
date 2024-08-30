@@ -1,0 +1,110 @@
+/*
+Name : Nishanth R
+Date : 24:12:2021
+Description : Read  n & n person names of maxlen
+Sample Input:./sort
+Sample Output:Enter the number of names :5
+Enter the 5 strings maxlen is 32
+[0] -> delhi
+[1] -> agra
+[2] -> kolkata
+[3] -> bangalore
+[4] -> chennai
+The Sorted strings are
+[0] -> agra
+[1] -> bangalore
+[2] -> chennai
+[3] -> delhi
+[4] -> kolkata
+Do you want to continue(Y/y): n
+
+*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int my_strcmp(const char *str1, const char *str2) //function definition for string comparision                  
+{
+        while(*str1 == *str2) //condition to check str1 equal to str2
+        {
+                if(*str1 == '\0') //if str1 equal to null ,return 0
+                        return 0;
+                *str1++; //increment str1
+                *str2++; //increment str2
+        }
+        return(*str1 - *str2);
+}
+
+int *my_strcpy(char *dest, char *src)  //function definition for string copy                             
+{
+        if(dest == NULL) //if destination equal to null ,returns null
+                return NULL;
+
+        char *ptr = dest; //store dest to ptr
+        while(*src != '\0') //condition to check src not equal to null
+        {
+                *dest = *src; //store source to destination
+                dest++; //increment destination
+                src++; //increment source
+        }
+        *dest = '\0'; //set null to destination
+}
+void sorting_names(char (*str)[32],int num)  //function definition for sorting the string names             
+{
+        char temp1[32],temp2[32]; //declare the character array
+        int i, j, var = 0;
+     
+        for ( i = 0; i < num - 1; i++ ) //loop for sorting the string names                   
+        {
+                for ( j = i + 1; j < num; j++ )
+                {
+                        var = my_strcmp(*(str + i) , *(str + j)); //function call for string comparision   
+                        if(var > 0)
+                        {
+                                my_strcpy(temp1,(*(str + i ))); //function call for string copy
+                                my_strcpy( (*(str + i)) , (*(str + j)) );     
+                                my_strcpy( (*(str + j)) , temp1 );
+                        }
+                }
+        }
+}
+
+void print_names(char (*str)[32],int num) //function definition for print string names                      
+{
+        for (int i = 0; i < num; i++ )
+        {
+                printf("[%d] -> %s\n",i,*(str + i)); //print the string names
+        }
+}
+
+
+int main()                                                       
+{
+        char choice; //declare choice variable
+        do{
+                int num,i,j; //declare the variables                                          
+                printf("Enter the number of names :");
+                scanf("%d", &num);
+                char (*str)[32];
+                str = malloc ( num * 32); //allocate memory
+                printf("Enter the %d strings maxlen is 32\n", num);
+                getchar();
+            
+                for (i = 0; i < num; i++) //loop for getting input from user                  
+                {
+                        printf("[%d] -> ", i);   
+                        scanf("%[^\n]", *(str+i));   
+                        getchar();
+                }
+                
+                sorting_names( str, num); //function call for sort the names                          
+                printf("The Sorted strings are\n");
+                print_names( str, num); //function call for print the names       
+
+                printf("Do you want to continue(y/n)?"); //promot user for continue option
+                scanf(" %c", &choice);
+               
+        }while ( choice == 'Y' || choice == 'y' );               
+        return 0;
+}
