@@ -1,0 +1,120 @@
+/*
+Name : Nishanth R
+Date : 10.12.2021
+Description : Varience calculation with static and dynamic arrays
+Input:
+
+  Enter no of elements:10
+  1.Static allocation
+  2.Dynamic allocation
+
+  Enter your choice:1
+  Enter 10 elements:
+  arr[0]=9
+  arr[1]=12
+  arr[2]=15
+  arr[3]=18
+  arr[4]=20
+  arr[5]=22
+  arr[6]=23
+  arr[7]=24
+  arr[8]=26
+  arr[9]=31
+
+Output :
+  Mean=20
+  x        D=x-mean    D^2
+  9        -11        121
+  12        -8        64
+  15        -5        25
+  18        -2        4
+  20        0        0
+  22        2        4
+  23        3        9
+  24        4        16
+  26        6        36
+  31        11        121
+ sum=200            sum=400
+  Varience = 40
+  Do you want to continue (y/n)?
+
+*/
+#include<stdio.h>
+#include<stdlib.h>
+float varience(int *arr,int size) // function for varience
+{
+        int mean = 0,sum = 0,sumd = 0; // initlizing varibles
+        float varience = 0;
+        for(int i = 0;i < size;i++) // for loop to find sum of array elements
+        {
+                sum += arr[i];
+        }
+        mean = sum/size; // finding mean
+        printf("\nMean=%d\n",mean);
+        printf("x        D=x-mean    D^2\n");
+        for(int j = 0;j < size;j++) // for loop to find D, D^2 and sum of D^2
+        {
+                printf("%d    ",arr[j]);
+                arr[j] -= mean; // finding D
+                printf("    %d",arr[j]);
+                arr[j] *= arr[j]; // finding D^2
+                printf("        %d",arr[j]);
+                sumd += arr[j]; // sum of D^2
+                printf("\n");
+        }
+        printf("sum=%d                sum=%d\n",sum,sumd);
+        varience = (float) sumd/size; // finding varience
+        return varience;
+}
+
+
+
+int main()
+{
+        char ch;
+        do
+        {
+                int n,choice; // initlizing variables
+                printf("Enter no of elements:");
+                scanf("%d",&n);
+                float var = 0;
+                printf("1.Static allocation\n2.Dynamic allocation\n");
+                printf("\nEnter your choice:");
+                scanf("%d",&choice); // getting choice
+                switch(choice) // switch case for choice
+                {
+                        case 1:  // case 1 for static allocation
+                                {
+                                        int arr1[n]; // initilizing static array
+                                        printf("Enter %d elements:\n",n);
+                                        for(int i = 0;i < n;i++) // getting array elements
+                                        {
+                                                printf("arr[%d]=",i);
+                                                scanf("%d",arr1+i);
+                                        }
+                                        var = varience(arr1,n); // function call
+                                        printf("\nVarience = %g\n",var); // printing varience
+                                }
+                                break;
+                        case 2: // case 2 for dynamic allocation
+                                {
+                                        int *ptr = malloc(n*sizeof(int)); // initlizing dynamic array
+                                        printf("Enter %d elements:\n",n);
+                                        for(int i = 0;i < n;i++) // getting array elemnts
+                                        {
+                                                printf("arr[%d]=",i);
+                                                scanf("%d",ptr+i);
+                                        }
+                                        var = varience(ptr,n); // function call
+                                        printf("\nVarience = %g\n",var); // printing varince
+                                        free(ptr); // freeing memory allocation
+                                }
+                                break;
+                        default: printf("Error: Invalid choice\n");
+                                 break;
+                }
+                printf("Do you want to continue (y/n)?"); // continue prompt
+                scanf(" %c",&ch);
+        }
+        while(ch == 'y' || ch == 'Y');
+}
