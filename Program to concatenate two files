@@ -1,0 +1,97 @@
+/*
+Name : Nishanth R
+Date : 24:12:2021
+Description :Program to concatenate two files
+Input :./concat_files
+Output:./a.out f1.txt f2.txt
+hai hello
+welcome all
+Emertxe reverse is Extreme
+
+*/
+
+//include header file
+#define _GNU_SOURCE
+#include <stdio.h>
+
+void print(FILE *fp1,FILE *fp2) //function definition for concat files
+{
+    char ch;
+    while ( (ch = fgetc(fp1)) != EOF ) //condition to check copy the character till EOF
+    {
+        fputc(ch,fp2); //print the file char by char
+    }
+}
+int main(int argc,char *argv[],int *envp[])
+{
+    FILE *fp1,*fp2,*fp3;
+    char ch;
+   
+    if ( argc == 1 ) //condition to check argument count = 1
+    {
+        print(stdin,stdout);
+        printf("\n");
+    }
+    else if ( argc == 2 ) //condition to check argument count = 2
+    {
+        fp1=fopen(argv[1],"r");
+        if ( fp1 == NULL ) //condition to check fp1 is null or not
+        {
+            printf("%s File not exists\n",argv[1]);
+            return -1;
+        }
+        printf("The contents of %s is : ",argv[1]); //print the content in fp1
+        while ( (ch = fgetc(fp1))  != EOF )
+        {
+            putchar(ch); //print the character
+        }
+        print(fp1,stdout);
+        printf("\n");
+        fclose(fp1);
+    }
+    else if ( argc == 3 ) //condition to check argument count = 3
+    {
+        fp1=fopen(argv[1],"r");
+        fp2=fopen(argv[2],"r");
+        if ( fp1 == NULL ) //condition to fp1 and fp2 null or not
+        {
+            fprintf(stderr,"%s file not exists\n",argv[1]);
+            return -2;
+        }
+        if ( fp2 == NULL )
+        {
+            printf("%s file not exists\n",argv[2]);
+            return -3;
+        }
+        printf("The contents of %s is : ",argv[1]); //print the content in fp1 and fp2
+        print(fp1,stdout);
+        printf("\n");
+        printf("The contents of %s is : ",argv[2]);
+        print(fp2,stdout);
+        printf("\n");
+        fclose(fp1);
+        fclose(fp2);
+    }
+    else if ( argc == 4 )
+    {
+        if ( (fp1=fopen(argv[1],"r") ) == NULL )
+        {
+            fprintf(stderr,"%s file is not present",argv[2]);
+            return -4;
+        }
+        if ( (fp2=fopen(argv[2],"r") ) == NULL )
+        {
+            printf("%s file is not present",argv[2]);
+            return -5;
+        }
+        fp3=fopen(argv[3],"a");
+        print(fp1,fp3); //concat fp1,fp3
+        putc('\n',fp3);
+        print(fp2,fp3); //concat fp2,fp3
+        fprintf(stdout,"Contents of %s and %s is copied to %s file\n",argv[1],argv[2],argv[3]); //print the content in fp1 ,fp2,fp3
+        fclose;
+    }
+    else
+        printf("Please enter proper command line input");
+    return 0;
+}
