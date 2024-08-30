@@ -1,0 +1,54 @@
+	
+/*
+Name : Nishanth R
+Date : 06.11.2021
+Description: Program to find number is even or odd using bitwise operator
+Input: Enter the number : 6
+Output:
+Enter the number:6
+6 is +ve even number
+
+*/
+#include<stdio.h>
+int main()
+{
+        char choice;
+        do
+        {
+                int num;
+                printf("Enter the number:");
+                scanf("%d",&num);
+                if (num |0) // condition for checking number is non zero
+                {
+
+                        if (num & 1 << 31) // condition for negative numbers
+                        {
+                                if ( num & 1) // conditon to check num is set or not that will be used for checking odd or even
+                                {
+
+                                        printf("%d is -ve odd number\n",num);
+                                }
+                                else
+                                {
+                                        printf("%d is -ve even number\n",num);
+                                }
+                        }
+                        else if (num & 1) // condition to check num is set or not that will be used for checking odd or even
+                        {
+
+                                printf("%d is +ve odd number\n",num);
+                        }
+
+                        else
+                        {
+
+                                printf("%d is +ve even number\n",num);
+                        }
+                }
+                else
+                        printf("0 is neither even nor odd\n"); // if number is zero
+                printf("Do you want to contine(y/Y)?");
+                scanf(" %c",&choice);
+        }while(choice=='y'||choice=='Y'); // while for choice
+        printf("\n");
+}
