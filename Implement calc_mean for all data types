@@ -1,0 +1,223 @@
+	
+/*
+Name : Nishanth R
+Date : 17.12.2021
+Description : Implement calc_mean for all data types
+Input :    1.int
+           2.short
+        3.float
+        4.double
+        Enter your choice:1
+        Enter 5 Elements:
+        arr[0] = 10
+        arr[1] = 20
+        arr[2] = 30
+        arr[3] = 40
+        arr[4] = 50
+Output: The mean value = 30
+Do you want to continue (y/n) ?
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+// function for calculating mean
+// passing void pointer,size,option as argument
+double cal_mean(void *arr,int size,int option)
+{
+        double average;
+
+        // using switch case for opions
+        switch(option)
+        {
+                // case 1 for int values
+                case 1:
+                        {
+                                for (int i = 0;i < size; i++)
+                                {
+                                        //type cast to prefered data type
+                                        // sum of array elements
+                                        average += *((int*)arr + i);
+                                }
+                                // calculating mean
+                                return average / size;
+                        }
+                        break;
+                // case 2 for short values
+                case 2:
+                        {
+                                for (int i = 0;i < size; i++)
+                                {
+                                        average += *((short*)arr + i);
+                                }
+                                return average / size;
+                        }
+                        break;
+                // case 3 for float values
+                case 3:
+                        {
+                                for (int i = 0;i < size; i++)
+                                {
+                                        average += *((float*)arr + i);
+                                }
+                                return average / size;
+                        }
+                        break;
+                // case 4 for double values
+                case 4:
+                        {
+                                for (int i = 0;i < size; i++)
+                                {
+                                        average += *((double*)arr + i);
+                                }
+                                return average / size;
+                        }
+                        break;
+        }
+}
+
+// my atoi function
+// passing base address of array
+int my_atoi(char *str)
+{
+        int res = 0,flag = 1, sign = 1,count = 0;
+        //running loop till \0
+        while(*str !='\0')
+        {
+                if (flag == 1)
+                {
+                        // condtion to check the elements is '+' and numbers between (0 to 9)
+                        if(*str == '+' || (*str >= '0' && *str <= '9'))
+                        {
+                                sign = 1;
+                        }
+                        // condition to check element is '-'
+                        else if (*str == '-')
+                        {
+                                sign = 0;
+                        }
+                        // if non other char break
+                        else
+                        {
+                                break;
+                        }
+                        flag = 0;
+                }
+                // conditon for checking char '0' to '9'
+
+                if (*str >= '0' && *str <= '9')
+                {
+                        // conditon for +ve values
+                        if (sign == 1)
+                        {
+                                res = (res * 10) + (*str - '0');
+                        }
+                        // for negative values
+                        else
+                        {
+                                res = (res * 10) - (*str - '0');
+                        }
+                }
+                else if(count++)
+                {
+                        break;
+                }
+                str++;
+        }
+        return res; // returning result
+}
+
+// getting arguments from command line
+int main(int argc,char* argv[])
+{
+        char ch;
+        do
+        {
+                int n,choice;
+                // if command arguments is greater than 1
+                if (argc > 1)
+                {
+                        n = my_atoi(argv[1]);
+                }
+                // if no command line inputs
+                else
+                {
+                        printf("Enter the no of elements: ");
+                        scanf("%d",&n);
+                }
+                // decalring void pointer
+
+                void * ptr;
+                printf("\n1.int\n2.short\n3.float\n4.double\nEnter your choice:");
+                scanf("%d",&choice);
+                // switch case for choice
+                switch(choice)
+                {
+                        case 1:
+                                {
+                                        // creating memory using calloc fun for int
+                                        ptr = calloc(n,sizeof(int));
+                                        printf("Enter %d Elements:\n",n);
+                                        for (int i = 0 ; i < n ; i++ )
+                                        {
+                                                printf("arr[%d] = ",i);
+                                                scanf("%d",((int*)ptr + i));
+                                        }
+                                        // function call and printing mean
+                                        printf("The mean value = %g\n",cal_mean(ptr,n,choice));
+
+                                }
+                                break;
+                        case 2:
+                                {
+                                        // creating memory using calloc fun for short
+                                        ptr = calloc(n,sizeof(short));
+                                        printf("Enter %d Elements:\n",n);
+                                        for ( int i = 0 ; i < n ; i++ )
+                                        {
+                                                printf("arr[%d] = ",i);
+                                                scanf("%hd",((short*)ptr + i));
+                                        }
+                                        // function call and printing mean
+                                        printf("The mean value = %g\n",cal_mean(ptr,n,choice));
+                                        break;
+
+                                }
+                        case 3:
+                                {
+                                        // creating memory using calloc fun for float
+                                        ptr = calloc(n,sizeof(float));
+                                        printf("Enter %d Elements:\n",n);
+                                        for ( int i = 0 ; i < n ; i++ )
+                                        {
+                                                printf("arr[%d] = ",i);
+                                                scanf("%f",((float*)ptr + i));
+                                        }
+                                        // function call and printing mean
+                                        printf("The mean value = %g\n",cal_mean(ptr,n,choice));
+
+                                }
+                                break;
+                        case 4:
+                                {
+                                        // creating memory using calloc fun for double
+                                        ptr = calloc(n,sizeof(double));
+                                        printf("Enter %d Elements:\n",n);
+                                        for ( int i = 0 ; i < n ; i++ )
+                                        {
+                                                printf("arr[%d] = ",i);
+                                                scanf("%lf",((double*)ptr + i));
+                                        }
+                                        // function call and printing mean
+                                        printf("The mean value = %g\n",cal_mean(ptr,n,choice));
+
+                                }
+                                break;
+                }
+                // freeing memory space
+                free(ptr);
+                printf("Do you want to continue (y/n) ?:");
+                scanf(" %c",&ch);
+        }
+        while(ch == 'y' || ch == 'Y');
+}
