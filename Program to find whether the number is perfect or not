@@ -1,0 +1,55 @@
+/*
+Name: Nishanth R
+Date: 29.10.2021
+Description: Program to find whether the number is perfect or not
+Sample input : 6
+Sample output : yes,entered number is a perfect number
+*/
+
+#include<stdio.h>
+int main()
+{
+        int num,range=1,j;  // intilizing the values
+        char choice;
+        for(j=1;j<=20;j++) // loop for iterating over the range
+        {
+                range=range*2; //check for range user entered within the range
+        }
+        do
+        {
+                printf("Enter the number: ");
+                scanf("%d",&num);
+                if(num > 0) // condition to check number greater than zero
+                {
+                        if(num <= range) // condition to check entered number within the range
+                        {
+                                int sum=0;
+
+
+                                for (int i=1;i<=num;i++)  // loop for iterating over till the number
+                                {
+                                        if ((num/2)%i == 0) // condition to check divide the number equal to zero
+                                        {
+                                                sum=sum+i; // add sum and i
+                                        }
+                                }
+
+                                if (sum == num) // condition to check for perfect number
+                                {
+                                        printf("yes entered number is perfect number\n");
+                                }
+                                else
+                                        printf("No,entered number not perfect number\n");
+                        }
+                        else
+                                printf("Entered number is out of range\n");
+                }
+                else
+                     printf("Error:Invalid input ,Enter only positive integer\n");
+               
+
+                printf("Do you want to continue?");
+                scanf(" %c",&choice);
+        }while(choice == 'y'); // condition for choice
+
+}
