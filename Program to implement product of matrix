@@ -1,0 +1,130 @@
+
+/*
+Name : Nishanth R
+Date : 15.12.2021
+Description : Program to implement product of matrix
+Input : Enter row value : 3
+Enter col value  : 3
+A[0][0] = 1
+A[0][1] = 2
+A[0][2] = 3
+A[1][0] = 1
+A[1][1] = 2
+A[1][2] = 3
+A[2][0] = 1
+A[2][1] = 2
+A[2][2] = 3
+Output:
+A value of matrix
+1    2    3   
+1    2    3   
+1    2    3   
+
+Transpose of matrix
+1    1    1   
+2    2    2   
+3    3    3   
+
+Product of matrix
+14    14    14   
+14    14    14   
+14    14    14   
+
+Do you want to continue ?:
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+void product_matrix(int row , int col , int **a , int **at , int ***ap)  // function for product of matrix
+{
+        int sum = 0;
+        for(int i = 0 ; i < row ; i++)
+        {
+                for(int j = 0 ; j < row ; j++)
+                {
+                        for(int k = 0 ; k < col  ; k++)
+                        {
+
+                                sum += a[i][k] * at[k][j]; // matrix multiplaction of row and col
+                        }
+                        (*ap)[i][j] = sum; //store
+                        sum = 0;
+                }
+        }
+}
+
+void scan_array(int row , int col , int **arr)  // function for scanning array elemnts
+{
+        for(int  i = 0 ; i < row ; i++)
+        {
+                for(int j = 0 ; j < col ; j++)
+                {
+                        printf("A[%d][%d] = " , i , j);
+                        scanf("%d",(*(arr + i) + j));
+                }
+        }
+}
+void transpose(int row , int col , int **a , int **at) // function for transpose
+{
+        for(int i = 0 ; i < row ; i++)
+        {
+                for(int j = 0 ; j < col ; j++)
+                {
+                        at[j][i] = a[i][j]; // transposing
+                }
+        }
+}
+void print_array(int row , int col , int **a) // function for printing elements
+{
+        for(int i = 0 ; i < row ; i++)
+        {
+                for(int j = 0 ; j < col ; j++)
+                {
+                        printf("%d\t" ,a[i][j]); // printing
+                }
+                printf("\n");
+        }
+        printf("\n");
+}
+void memory_allocation(int row , int col , int ***a) // function for memory allocation
+{
+        *a = calloc(row , sizeof(int*));
+        for(int i = 0 ; i < row ; i++) // memory allocation using calloc
+        {
+                (*a)[i] = calloc(col , sizeof(int));
+        }
+}
+int main()
+{
+        char ch;
+        do
+        {
+                int row , col ;
+                int **a; // pointer for a matrix
+                printf("Enter row value : ");
+                scanf("%d" , &row);
+                printf("Enter col value  : ");
+                scanf("%d" , &col );
+                memory_allocation(row , col , &a); // memory allocation function call for A matrix
+                scan_array(row , col , a); // scan array fun call
+                int **at; // pointer for a transpose matrix
+                memory_allocation(col , row , &at); // memeory allocation function call for transpose matrix
+                transpose(row , col , a , at); // transpose function call
+                printf("A value of matrix\n");
+                print_array(row , col , a); // print array function call to prtint A matrix
+                printf("Transpose of matrix\n");
+                print_array(col , row , at); // print array fun call to print A transpose
+                int **ap ; // pointer for poroduct of matrix
+                printf("Product of matrix\n");
+                memory_allocation(row , row , &ap); // memory allocation function call for product matrix
+                product_matrix(row , col , a , at , &ap); // product of marix function call
+                print_array(row , row , ap); // print product fun call
+                free(*a);
+                free(*at);
+                free(*ap);
+                printf("Do you want to continue ?:");
+                scanf(" %c",&ch);
+        }
+        while(ch == 'y' || ch == 'Y');
+
+}
