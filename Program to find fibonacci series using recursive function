@@ -1,0 +1,47 @@
+	
+/*
+Name : Nishanth R
+Date : 25.11.2021
+Description : Program to find fibonacci series using recursive function
+Input : Enter the number :5
+Output : Fibonacii series using recursive function is  0  1  1  2  3  5
+
+*/
+
+#include<stdio.h>
+int fibonacii(int num,int first,int sec,int fib) // fibanocci function
+{
+        if (num > 0 && fib <= num) // condition for positive numbers and to stop recursion till number
+        {
+                first = sec;  // operation for fibanocii
+                sec = fib;
+                printf(" %d ",fib);
+                fib = first + sec;
+                fibonacii(num,first,sec,fib); // function call
+        }
+        else if (num < 0 && fib >= num && fib <= -num) // condition for negative and to stop recursion till number
+        {
+                first = sec; // operation for fibanocii
+                sec = fib;
+                printf(" %d",fib);
+                fib = first - sec;
+                fibonacii(num,first,sec,fib); // function call
+        }
+}
+int main()
+{
+        char choice;
+        do
+        {
+                int num,first=0,sec=1,fib=0;  // initlizing values
+                printf("Enter the value of n:");
+                scanf("%d",&num);
+                printf("Fibonacii series using recursive function is ");       
+                fibonacii(num,first,sec,fib); // function call
+                printf("\n");
+                printf("Do you want to continue(y/Y):"); // choice
+                scanf(" %c",&choice);
+        }
+        while(choice == 'y' || choice == 'Y');
+
+}
