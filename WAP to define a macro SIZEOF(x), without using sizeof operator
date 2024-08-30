@@ -1,0 +1,95 @@
+/*
+Name : Nishanth R
+Date : 18.12.2021
+Description : WAP to define a macro SIZEOF(x), without using sizeof operator
+Input : None
+Output: Size of int = 4 bytes
+        Size of char = 1 bytes
+        Size of short = 2 bytes
+        Size of float = 4 bytes
+        Size of double = 8 bytes
+        Size of long int = 8 bytes
+        Size of long int = 4 bytes
+        Size of long int = 16 bytes
+
+*/
+
+#include<stdio.h>
+
+// defining macros
+#define SIZE_OF(num)\
+{\
+        size=(char*)(num + 1) - (char*) num;\
+}
+
+
+int main()
+{
+        // size_offor integer
+        {
+                int num=10,size=0;
+                int* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of int = %d bytes\n",size);
+        }
+
+
+        // size_of for char
+        {
+                char num=10;
+                int size=0;
+                char* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of char = %d bytes\n",size);
+        }
+
+        // size_of for short
+        {
+                short num=10;
+                int size=0;
+                short* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of short = %d bytes\n",size);
+        }
+        // size_of for float
+
+        {
+                float num=10;
+                int size=0;
+                float* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of float = %d bytes\n",size);
+        }
+        // size_of for double
+        {
+                double num=10;
+                int size=0;
+                double* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of double = %d bytes\n",size);
+        }
+        // size_of for long int
+        {
+                long int num=10;
+                int size=0;
+                long int* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of long int = %d bytes\n",size);
+        }
+        // size_of for unsigned int
+        {
+                unsigned int num=10;
+                int size=0;
+                unsigned int* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of long int = %d bytes\n",size);
+        }
+        // size_of for double
+        {
+                long double num=10;
+                int size=0;
+                long double* ptr=&num;
+                SIZE_OF(ptr);
+                printf("Size of long int = %d bytes\n",size);
+        }
+}
