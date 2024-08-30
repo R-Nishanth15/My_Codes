@@ -1,0 +1,60 @@
+/*
+Name : Nishanth R
+Date : 21.11.2021
+Descripton : Program to print all prime numbers
+Input : Enter the number:10
+Output:The Primes less than or equal to 11 are :2,3,5,7,11
+*/
+
+#include<stdio.h>
+int main()
+{
+        int num,range=1; // initlizing values
+        char choice;
+        for (int i=1;i<20;i++)  // running loop to find range
+        {
+                range=range*2;
+        }
+        do
+        {
+                printf("Enter the number:");
+                scanf("%d",&num);
+                if (num > 1) // conditon for checking number within the range
+                {
+                        if (num < range)
+                        {
+                                int arr[num]; // initilizing array
+                                for (int z=0;z<=num;z++) // running loop to stor numbers in array
+                                {
+                                        arr[z-1]=z;
+                                }
+                                for (int i=1;i <= num/2;i++) // running loop to find prime numbers
+                                {
+                                        if(arr[i] != 0) // conditon for non zero element in array
+                                        {
+                                                for (int j=(arr[i] * arr[i]);j <=num;j=j+arr[i]) // running for loop to make 0 of multiples of that number
+                                                {
+                                                        arr[j-1]=0;
+                                                }
+                                        }
+                                }
+                                printf("The Primes less than or equal to %d are :",num);
+                                for (int i=1;i<num;i++)    // running for loop to printing array elements
+                                {
+                                        if(arr[i] != 0)
+                                        {
+                                                printf("%d,",arr[i]);
+                                        }
+                                }
+                                printf("\n");
+                        }
+                        else
+                                printf("Number out of range \n");
+                }
+                else
+                        printf("Invalid input\n");
+                printf("Do you want to continue(y/Y):");
+                scanf(" %c",&choice);
+        }
+        while(choice == 'y' || choice == 'Y'); // checking for choice
+}
