@@ -1,0 +1,76 @@
+	
+/*
+Name : Nishanth R
+Date : 10.12.2021
+Description : program to reverse the string sing iteration and recursive method
+Input :
+        1.ITERATIVE
+        2.RECURSIVE
+        Enter the choice:1
+        Enter the string:Hello World
+Output: dlroW olleH
+        Do you want to continue(y/Y)?
+*/
+#include<stdio.h>
+void recursive(char *str,int i,int len)  // function for recusrion
+{
+
+        if(i < len/2)  // condition for recursive
+        {
+                char ch = str[i]; // swappig chars
+                str[i] = str[len - 1 - i];
+                str[len - 1 - i] = ch;
+                recursive(str , ++i , len); // function call
+        }
+
+}
+void iteration(char *str,int len)  // function for iteration
+{
+        int i;
+        char temp;
+        for(i = 0 ; i < len/2 ; i++)
+        {
+                temp = str[i];  // swapping charcs
+                str[i] = str[len - 1 -i];
+                str[len - 1 -i] = temp;
+        }
+}
+int length(char* str)  // function for finding length
+{
+        int i;
+        for(i = 0 ; str[i] != '\0' ; i++);
+        return i;
+}
+int main()
+{
+        char choice;
+        do
+        {
+                int option;
+                char str[100];
+                printf("1.ITERATIVE\n2.RECURSIVE\n");
+                printf("Enter the choice:");
+                scanf("%d",&option);
+
+                switch(option)  // switch for option
+                {
+                        case 1:printf("Enter the string:");
+                               scanf(" %[^\n]", str);  // getting input
+                               int len=0;
+                               len = length(str); // length function call
+                               iteration(str , len); // iteration function call
+                               printf("%s",str);
+                               break;
+                        case 2:printf("Enter the string : ");
+                               scanf(" %[^\n]" , str);
+                               len = length(str);  // length function call
+                               recursive(str , 0 , len); // recursive function call
+                               printf("%s",str);
+                               break;
+                        default:printf("Enter the correct option");
+                                break;
+                }
+                printf("\nDo you want to continue(y/Y)?");
+                scanf(" %c",&choice);
+        }while(choice == 'y' || choice == 'Y');
+}
