@@ -1,0 +1,45 @@
+	
+/*
+  Name : Nishanth R
+  Date : 22:12:2021
+  Description : Implement a my_cp() function
+  Input:./a.out
+  Output:./my_cp file1.txt file2.txt
+  Data copied successfully
+ */
+
+#include<stdio.h>
+void my_cp(FILE *fp1,FILE *fp2)    // function definition for copy files
+{
+        char ch;
+        while((ch=fgetc(fp1))!=EOF)  // while for printing data to file
+        {
+                fputc(ch,fp2);  // print to file char by char
+        }
+}
+int main(int argc,char *argv[])
+{
+    
+        if (argc==3) // conditon to check both source and destination file given in command line
+        {
+                FILE *fp1=fopen(argv[1],"r");
+                FILE *fp2=fopen(argv[2],"w");
+                if(fp1 == NULL)
+                {
+                        printf("Error:NO such files\n");
+                        return 0;
+                }
+                my_cp(fp1,fp2);
+                printf("Data copied sucessfully\n");
+        }
+        else if (argc==2) // conditon for desstination file missing
+        {
+                printf("Error:Destination file missing\n");
+                return 0;
+        }
+        else  // no files passed
+        {
+                printf("Error:File names not passed\n");
+                return 0;
+        }
+}
