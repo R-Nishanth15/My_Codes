@@ -1,0 +1,68 @@
+/*
+Name : Nishanth R
+Date : 1.12.2021
+Description : program to print values in sorted array without modifing or sorting
+Input : Enter the size of float element need to store : 3
+        4.5
+        3.4
+        1.3
+Output:
+[0] = 4.5
+[1] = 3.4
+[2] = 1.3
+After sorting: 1.3 3.4 4.5
+*/
+
+#include<stdio.h>
+int size; // geclaring size as global variable
+void sort(float *arr) // function for sorting array
+{
+        float small=*arr; // storing first element
+        printf("After sorting: ");
+        for (float *i = arr; i < (arr+size);i++) // loop to find smallest element
+        {
+                if( small > *i)
+                        small = *i;
+        }
+        printf("%g ",small);
+        float large= *arr;
+        for(float *i=arr;i < (arr+size);i++) // loop to find large number
+        {
+                if (large < *i)
+                        large= *i;
+        }
+        for(int i =1 ; i< size;i++) // loop to print element in order
+        {
+                float temp = large;
+                for (float *j = arr ; j < (arr+size);j++)
+                {
+                        if (*j > small && *j <= temp)
+                                temp = *j;
+                }
+                small=temp;
+                printf("%g ",temp);
+        }
+        printf("\n");
+}
+int main()
+{
+        char choice;
+        do
+        {
+                printf("Enter the size of float element need to store: ");
+                scanf("%d",&size);
+                float arr[size];
+                for(int i =0;i < size;i++) // loop to scan array element
+                {
+                        scanf("%g",&arr[i]);
+                }
+                for (int i=0;i < size;i++) // loop to print array element
+                {
+                        printf("[%d] = %g\n",i,arr[i]);
+                }
+                sort(arr); // function call
+
+                printf("\ndo you want to continue(y/n):");
+                scanf(" %c",&choice);
+        }while(choice == 'y' || choice == 'Y');
+}
