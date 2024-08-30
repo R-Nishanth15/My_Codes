@@ -1,0 +1,73 @@
+/*
+Name : Nishanth R
+Date : 15.12.2021
+Description : Generate consecutive NRPS of length n using k distinct character
+Input : Enter the number of charcters C: 3
+        Enter the length of the string N : 4
+        Enter 3 disctint characters:
+        a
+        b
+        c
+Output: abcb
+        Do you want to continue (y/n)?
+*/
+
+
+#include<stdio.h>
+
+void nrps_string(char *str , int len, int n)  // function for nrps
+{
+        int i,index, val = 0;
+
+        for (i = 0; i < len; i++) // increment value if i is even and not 0
+        {
+                if(i%n == 0 && i != 0)
+                {
+                        val++;
+                }
+                index=(i+val)%n;
+                printf("%c", str[index]);
+        }
+}    
+
+int main()
+{
+        char ch;
+        do
+        {
+                int c, n, i, j,flag = 0;
+
+                printf("Enter the number of charcters C: ");
+                scanf("%d", &c);
+                printf("Enter the length of the string N : ");
+                scanf("%d", &n);
+
+                char arr[c];
+
+                printf("Enter %d disctint characters: \n",c);
+                for (i = 0; i < c; i++)
+                {
+                        scanf("\n%c", arr+i);
+                }
+
+                for (i = 0; i < c; i++)  // checking for distinct chars
+                {
+                        for (j = (i+1); j < c; j++)
+                        {
+                                if(arr[j] == arr[i] )
+                                {
+                                        printf("Error: values are not distinct.\n");
+                                        flag = 1;
+
+                                }
+                        }
+                }
+                if(flag == 0)
+                {
+                nrps_string(arr, n, c); // function call
+                }
+                printf("\nDo you want to continue (y/n)?:"); // continue prompt
+                scanf(" %c",&ch);
+        }
+        while(ch == 'y' || ch == 'Y');
+}
