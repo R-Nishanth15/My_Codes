@@ -1,0 +1,249 @@
+/*
+Name : Nishanth R
+Date : 18.12.2021
+Description : WAP to implement binary search for all basic datatypes
+Input : 1.int
+2.char
+3.float
+4.double
+Enter your choice: 1
+Enter 4 element of int:
+a[0]--> 1
+a[1]--> 2
+a[2]--> 7
+a[3]--> 4
+Output:
+After sorting:
+1 2 4 7
+Enter the key element to search : 1
+Search element '1' is at position '0' of array
+Do you want to continue(y/n)?: n
+*/
+
+
+#include<stdio.h>
+#include<stdlib.h>
+// macro for sorting
+#define SORT(type) \
+{\
+        for ( i = 0 ; i < size  ; i++ ) \
+        {\
+                for (j = i ; j < size ; j++ ) \
+                {\
+                        if ( *((type*)arr+i) > *((type*)arr+j) )\
+                        {\
+                                type temp = *((type*)arr+i);\
+                                *((type*)arr+i) = *((type*)arr+j);\
+                                *((type*)arr+j) = temp;\
+                        }\
+                }\
+        }\
+}
+
+//macro for finding binar values
+#define BINARY(type)                                            \
+{   while (fir <= last)                                         \
+        {   mid = (fir + last) / 2;                          \
+                if (*(type *)key == *((type *)ptr + mid))        \
+                return mid;                                      \
+                else if (*(type *)key > *((type *)ptr + mid))    \
+                fir = mid + 1;                                   \
+                else if (*(type *)key < *((type *)ptr + mid))    \
+                last = mid - 1;                                  \
+        }             return -1;                                 \
+}
+// function for sorting
+void sorting(int choice,int size ,void* arr)
+{
+        int i,j;
+        switch(choice)
+        {
+                case 1:SORT(int);
+                       break;
+                case 2:SORT(char);
+                       break;
+                case 3:SORT(float);
+                       break;
+                case 4:SORT(double);
+                       break;
+        }
+}
+// function for binary search
+int search(int choice, int size, void * key, void * ptr)
+{
+        int fir = 0, last;
+        int mid;
+        last = size - 1;
+        switch(choice)
+        {
+                case 1: BINARY(int);
+                        break;
+                case 2: BINARY(char);
+                        break;
+                case 3: BINARY(float);
+                        break;
+                case 4: BINARY(double);
+                        break;
+        }
+}
+// getting input form command line
+int main(int argc,char**argv)
+{
+        char ch;
+        do
+        {
+                int n,choice;
+
+                // condition for element in command line
+                if ( argc == 2 )
+                {
+                        n= *argv[1] - '0';
+                }
+                else if ( argc > 2 )
+                {
+                        printf("Error: Too more arguments.Enter only one\n");
+                        break;
+                }
+                // if no command line arguments
+                // getting input from user
+                else
+                {
+                        printf("Enter the no of elements: ");
+                        scanf("%d",&n);
+                }
+
+                printf("1.int\n2.char\n3.float\n4.double\nEnter your choice: ");
+                scanf("%d",&choice);
+                // declaring void pointer
+                void* ptr;
+                // switch case for choice
+                switch(choice)
+                {
+                        int res;
+                        // case 1 for int elements
+                        case 1:
+                        {
+                                // allocating memory using calloc
+                                ptr = calloc(n,sizeof(int));
+                                int key;
+                                printf("Enter %d element of int:\n",n);
+                                for ( int i = 0 ; i < n ; i++ )
+                                {
+                                        printf("a[%d]--> ",i);
+                                        scanf("%d",(int*)ptr + i);
+                                }
+                                // function call
+                                sorting(choice,n,ptr);
+                                printf("After sorting\n");
+                                for(int i =0 ; i < n ; i++)
+                                {
+                                        printf("%d ",*((int*)ptr + i));
+
+                                }
+                                printf("\nEnter the key element to search : ");
+                                scanf("%d", &key);
+                                //function call
+                                res = search(choice, n, &key, ptr);
+                                if (res == -1)
+                                        printf("Error : Key is not found in the array\n");
+                                else
+                                        printf("\nSearch Element '%d' is at position '%d' of array.\n", key, res);
+                                break;
+                        }
+                        // case 2 for char elements
+                        case 2:
+                        {
+                                // allocating memory using calloc
+                                ptr = calloc(n,sizeof(char));
+                                char key;
+                                printf("Enter %d element of int:\n",n);
+                                for ( int i = 0 ; i < n ; i++ )
+                                {
+                                        printf("a[%d]--> ",i);
+                                        scanf(" %c",(char*)ptr + i);
+                                }
+                                // function call
+                                sorting(choice,n,ptr);
+                                printf("After sorting\n");
+                                for(int i =0 ; i < n ; i++)
+                                {
+                                        printf("%c ",*((char*)ptr + i));
+
+                                }
+                                printf("\nEnter the key element to search : ");
+                                scanf(" %c", &key);
+                                //function call
+                                res = search(choice, n, &key, ptr);
+                                if (res == -1)
+                                        printf("Error : Key is not found in the array\n");
+                                else
+                                        printf("\nSearch Element '%c' is at position '%d' of array.\n", key, res);
+                                break;
+                        }
+                        // case 3 for float elements
+                        case 3:
+                        {
+                                // allocating memory using calloc
+                                ptr = calloc(n,sizeof(float));
+                                float key;
+                                printf("Enter %d element of int:\n",n);
+                                for ( int i = 0 ; i < n ; i++ )
+                                {
+                                        printf("a[%d]--> ",i);
+                                        scanf("%f",(float*)(ptr) + i);
+                                }
+                                // function call
+                                sorting(choice,n,ptr);
+                                printf("After sorting\n");
+                                for(int i =0 ; i < n ; i++)
+                                {
+                                        printf("%g ",*((float*)ptr + i));
+                                }
+                                printf("\nEnter the key element to search : ");
+                                scanf("%f", &key);
+                                //function call
+                                res = search(choice, n, &key, ptr);
+                                if (res == -1)
+                                        printf("Error : Key is not found in the array\n");
+                                else
+                                        printf("\nSearch Element '%g' is at position '%d' of array.\n", key, res);
+                                break;
+                        }
+                        // case 4 for double elements
+                        case 4:
+                        {
+                                // allocating memory using calloc
+                                ptr = calloc(n,sizeof(double));
+                                double key;
+                                printf("Enter %d element of double:\n",n);
+                                for ( int i = 0 ; i < n ; i++ )
+                                {
+                                        printf("a[%d]--> ",i);
+                                        scanf("%lf",(double*)(ptr) + i);
+                                }
+                                // function call
+                                sorting(choice,n,ptr);
+                                printf("After sorting\n");
+                                for(int i =0 ; i < n ; i++)
+                                {
+                                        printf("%g ",*((double*)ptr + i));
+
+                                }
+                                printf("\nEnter the key element to search : ");
+                                scanf("%lf", &key);
+                                //function call
+                                res = search(choice, n, &key, ptr);
+                                if (res == -1)
+                                        printf("Error : Key is not found in the array\n");
+                                else
+                                        printf("\nSearch Element '%g' is at position '%d' of array.\n", key, res);
+                                break;
+                        }
+                        default : printf("Error:Invalid OPtion\n");
+                }
+                free(ptr);
+                printf("Do you want to continue (y/n):");
+                scanf(" %c",&ch);
+        }
+        while ( ch == 'y' || ch == 'Y');
+}
