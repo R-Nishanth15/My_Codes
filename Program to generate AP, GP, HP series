@@ -1,0 +1,77 @@
+	
+/*
+Name : Nishanth R
+Date : 2.11.2021
+Descrpition : Program to generate AP, GP, HP series
+Input:
+Enter the first number 'A' =2
+Enter the Common Difference/Ratio 'R' = 3
+Enter the number of terms 'N' =4
+output:
+AP = 2,5,8,11,
+GP = 2,6,18,54,
+HP = 0.5,0.2,0.125,0.0909091,
+*/
+
+#include<stdio.h>
+int main()
+{
+        char choice;
+        do
+        {
+                int i,A,R,N,range1=1;  //initilizing values
+                for(int z=1;z<=10;z++)
+                {
+                        range1=range1*2;
+                }
+                printf("Enter the first number 'A' = ");             // getting input for A,R,N from user
+                scanf("%d", &A);
+                printf("Enter the Common Difference/Ratio 'R' = ");
+                scanf("%d",&R);
+                printf("Enter the number of terms 'N' = ");
+                scanf("%d",&N);
+                if((A > 0) && (R > 0) && (N > 0))            // condition for checking zero
+                {
+                        if ((A < range1) && (R < range1) && (N < range1)) // condition for checking entered values in the range
+                        {
+                                int ap=A; // initilizing ap to A
+                                printf("AP = ");
+                                for(i=1;i<=N;i++) // running for loop till N
+                                {
+                                        printf("%d,",ap);
+                                        ap=ap+R; // adding with R gives AP series
+                                }
+                                printf("\n");
+                                int gp=A;   // initlizing gp to A
+                                printf("GP = ");
+                                for (int j=1;j<=N;j++)
+                                {
+                                        printf("%d,",gp);
+                                        gp=gp*R;  // multipling with R gives gp series
+
+                                }
+                                printf("\n");
+
+                                int hp=A; // initilizing hp to A
+                                float HP; // initilizing HP with float to get float values
+                                printf("HP = %g,",(float)1/hp);
+                                for (int k=1;k<N;k++)
+                                {
+                                        hp=hp+R;
+                                        HP= (float) 1/hp; // operation to get HP series
+                                        printf("%g,",HP);
+
+                                }
+                                printf("\n");
+                        }
+                        else
+                                printf("Error: Out of range\n");
+                }
+                else
+                        printf("Invalid input : Please enter only positive values\n");
+                printf("Do you want to continue (y/Y)?=");
+                scanf(" %c",&choice);
+        }while (choice == 'y' || choice == 'Y'); // condition for choice
+printf("\n");
+
+}
