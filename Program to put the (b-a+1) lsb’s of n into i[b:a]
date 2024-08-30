@@ -1,0 +1,78 @@
+/*
+ * Name:            Nishanth R
+ * Date:            19.11.2021
+ * Description:     put the (b-a+1) lsb’s of n into i[b:a]
+ * Test Case 1:     ./bit_ops
+ *                  Enter the value of 'n' : 11
+ *                  Enter the value of 'I': 174
+ *                  Enter the value of 'a' : 3
+ *                  Enter the value of 'b' : 5
+ *                  The binary form of 'n' : 00000000 00000000 00000000 00001011
+ *                  The binary form of 'I' : 00000000 00000000 00000000 10101110
+ *                  Updated form of 'I'(158): 00000000 00000000 00000000 10011110
+ *                  Want to continue ( y/Y ) : n
+ */
+
+#include<stdio.h>
+//this function return to get last num bits from n to replace val in position b to num bits
+int put_the_lsb_of_n(int n,int val,int b,int c)
+{
+    return ((~(((1<<c)-1)<<(b-c + 1))) & val) | ((((1<<c)-1)& n)<<(b-c+1));
+}
+
+//this function to print binary format of given number
+void print_bits(int num)
+{
+    printf("%d --> ",num);
+    for(int i=31; i >= 0; i--)
+        printf("%d", num & (1 << i) ? 1 : 0);
+    printf("\n");
+}
+
+int main()
+{
+    //continue option
+    char choice;
+    do{
+
+        //read values from user
+        int n,val,a,b;
+        printf("Enter n :");
+        scanf("%d",&n);
+        printf("Enter value:");
+        scanf("%d",&val);
+        printf("Enter a :");
+        scanf("%d",&a);
+
+        //check if 0 < a <=31
+        if(0 < a && a <= 31 )
+        {
+            printf("Enter b :");
+            scanf("%d",&b);
+
+            //check if 0 <= b <= 31
+            if(a <= b && b <= 31)
+            {
+                //call the functions
+                int num_bits=(b-a+1);
+                printf("n is ");
+                print_bits(n);
+                printf("val is ");
+                print_bits(val);
+                printf("new number ");
+                print_bits(put_the_lsb_of_n(n,val,b,num_bits));
+            }
+            else
+                printf("Enter valid range 0 < a <=31\n");
+        }
+        else
+            printf("Enter valid range %d <= b <= 31\n",a);
+
+        //read the choice continue or close
+        printf("Want to continue ( y/Y ) :");
+        scanf("\n%c",&choice);
+
+    //check the choice
+    }while(choice == 'y' || choice == 'Y');
+
+}
