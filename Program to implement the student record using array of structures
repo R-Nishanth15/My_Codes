@@ -1,0 +1,252 @@
+/*
+Name : Nishanth R
+Date : 26:12:2021
+Description : Program to implement the student record using array of structures
+Input:./student_record
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int my_strcmp( char *str1, char *str2) //function definition for string compare
+{
+    // compare two strings with case insensitive
+    while ( (*str1 && *str2) && (*str1 == *str2) || (*str1 - 32 == *str2) || (*str1 == *str2 - 32) )
+    {
+        str1++; //increment str1
+        str2++; //increment str2
+    }
+    return *str2 - *str1;  // If both the strings are same means it will return 0 else ( >0 or <0)
+}
+
+char grade(float avg) //function definition for finding grade
+{
+    if ( avg >= 90 )
+    {
+        return 'A';
+    }
+    else if (avg >= 80 && avg < 90)
+    {      
+        return 'B';
+    }
+    else if (avg >= 70 && avg < 80)
+    {
+        return 'C';
+    }
+    else if (avg >= 60 && avg < 70)
+    {
+        return 'D';
+    }
+    else if (avg >= 50 && avg < 60)
+    {
+        return 'E';
+    }
+    else
+    {
+        return 'F';
+    }
+}
+
+struct student //structure definition
+{
+    int roll_num;
+    char name[50];
+    int *mark;
+};
+
+int main()
+{
+    char ch1, ch2; //declare char variables
+    do
+    {
+        int no_of_students = 0, no_of_subjects = 0; //declare no.of students and subjects
+        char (*str)[30];
+        int option, choice; //declare choice and option
+        float sum = 0, avg = 0; //declare float values
+
+        printf("Enter number of students : ");
+        scanf("%d", &no_of_students);
+        printf("Enter number of subjects : ");
+        scanf("%d", &no_of_subjects);
+
+        str = malloc (sizeof(*str) * no_of_subjects); //memory allocation for subjects
+
+        struct student S[no_of_students]; //structure variable declaration
+
+        for (int i = 0; i < no_of_subjects; i++) //loop for subject names
+        {
+            printf("Enter name of the Subject %d : ", i + 1 );
+            scanf("%s", str[i]);  // read subject name
+        }
+
+        for (int i = 0; i < no_of_students; i++) //loop for students
+        {
+            printf("-------------------Enter students details----------------\n");
+            printf("Enter the student %d Roll Number : ", i + 1);
+            fflush(stdin);
+            scanf("%d", &S[i].roll_num);   // Read roll num from user
+            printf("Enter the student %d name : ", i + 1);
+            fflush(stdin);
+            scanf("%s",S[i].name);        // Read name from user
+
+            // Memory allocation to store mark for each student
+            S[i].mark = ( int * )malloc ( sizeof(int) * no_of_subjects);
+
+            for (int j = 0; j < no_of_subjects; j++)
+            {
+                printf("Enter the %s mark : ", str[j]);
+                scanf("%d", &S[i].mark[j]);   // read mark from user
+            }
+        }
+        do
+        {
+            printf("--------------------DISPLAY MENU------------------------\n");
+            printf("1. All Student Details\n2. Particular Student Details\nEnter your choice : ");
+            scanf("%d", &option);
+
+            switch (option)
+            {
+                case 1 :
+                    printf("Menu for All Student Details\n");
+                    printf("Roll no\tName\t");
+
+                    for(int j = 0; j < no_of_subjects; j++)
+                    {
+                        printf("\t%s\t", str[j]);  // printing subjects
+                    }
+
+                    printf("\tAverage\tGrade\n");
+
+                    for (int i = 0; i < no_of_students; i++)
+                    {
+                        sum = 0;
+                        for (int j = 0; j < no_of_subjects; j++)
+                        {
+                            sum = sum + S[i].mark[j];   // adding mark for each student
+                        }
+                        printf("%d\t%s\t", S[i].roll_num, S[i].name);   // display roll num and name
+
+                        for (int j = 0; j < no_of_subjects; j++)
+                        {
+                            printf("%d\t", S[i].mark[j]);   // display mark of each subject
+                        }
+
+                        avg = sum / no_of_subjects;   // finding avg for each student
+
+                        printf("%g\t%c\n", avg, grade(avg));  // display avg and grade
+                    }
+
+                    break;
+                case 2 :
+                    {
+                        printf("-----------------------Menu for particular student--------------------\n");
+                        printf("1. Name\n2. Roll no\nEnter your choice: ");
+                        scanf("%d",&choice);
+
+                        if (choice == 1)
+                        {
+                            char student_name[40];
+
+                            // Prompt to read name of the student to display the detail of that particular student
+                            printf("Enter name of the student : ");
+                            scanf("%s",student_name);
+
+                            sum = 0;
+                            avg = 0;
+                            int count = 0;
+
+                            for (int i=0; i < no_of_students; i++)
+                            {
+
+                                if ( my_strcmp (student_name, S[i].name) == 0)   // function call to compare
+                                {
+                                    count++;
+                                    printf("Roll No\tName\t");
+
+                                    for(int j = 0; j < no_of_subjects; j++)
+                                    {
+                                        printf("%s\t", str[j]);
+                                        sum = sum + S[i].mark[j];
+                                    }
+
+                                    avg = sum / no_of_subjects;
+
+                                    printf("Average\tGrade\n");
+                                    printf("%d\t%s\t",S[i].roll_num, S[i].name);
+
+                                    for(int j = 0; j < no_of_subjects; j++)
+                                    {
+                                        printf("%d\t",S[i].mark[j] );
+                                    }
+
+                                    printf("%g\t%c\n",avg,grade(avg));
+
+                                }
+                            }
+                            if (count == 0)
+                            {
+                                printf("%s student detail is not available\n", student_name);
+                            }
+                        }
+                        else if ( choice == 2)
+                        {
+                            int number;
+                            sum = 0;
+                            avg = 0;                                  
+                            printf("Enter the Student Roll Number : ");
+                            scanf("%d",&number);
+
+                            for (int i=0; i < no_of_students; i++)
+                            {
+                                if ( number == S[i].roll_num )  // comparing roll number
+                                {
+                                    printf("Roll No\tName\t");
+
+                                    for(int j=0; j < no_of_subjects; j++)
+                                    {
+                                        printf("%s\t", str[j]);
+                                        sum = sum + S[i].mark[j];
+                                    }
+                                    avg = (sum / no_of_subjects);
+
+                                    printf("Average\tGrade\n");
+
+                                    printf("%d\t%s\t",S[i].roll_num, S[i].name);
+
+                                    for(int j=0; j < no_of_subjects; j++)
+                                    {
+                                        printf("%d\t",S[i].mark[j] );
+                                    }
+
+                                    printf("%g\t%c\n",avg,grade(avg));
+                                }
+
+                            }
+                        }
+                        else if (choice != 1 && choice != 2)
+                        {
+                            printf("Enter valid option\n");
+                        }
+
+                        break;
+                    }
+
+                default :
+                    printf("Error : Invalid choice \n");
+                    break;
+            }
+
+            printf("Do you want to continue to display(y/n)?"); // asks permisssion from user to repeat the operation
+            scanf(" %c",&ch2);
+
+        }while (ch2 == 'Y' || ch2 == 'y');        // condition checking to repeat the display function
+
+        free(str);
+        str = NULL;
+        printf("Do you want to repeat the operation (y/Y) : "); // Prompt to ask permission from user to repeat the operation
+        scanf(" %c",&ch1);
+
+    }while (ch1 == 'Y' || ch1 == 'y');        // condition checking for repetetion of reading student details
+
+    return 0;
+}
