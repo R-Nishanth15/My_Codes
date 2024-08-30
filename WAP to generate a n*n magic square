@@ -1,0 +1,102 @@
+/*
+Name : Nishanth R
+Date : 19.12.2021
+Description : WAP to generate a n*n magic square
+Input :Enter a number: 3
+Output:
+8   1   6
+3   5   7
+4   9   2
+Do you want to continue?(y/Y):
+*/
+
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// function for generate magic square
+void generate_square(int** magic_square,int n)
+{
+
+
+        // Initialize position 1
+        int i = 0;
+        int j = n / 2;
+
+        for (int num = 1; num <= n * n;)
+        {
+                if (i == -1 && j == n)
+                {
+                        i = i + 2;
+                        j = j - 1;
+                }
+                else
+                {
+                        //   if next number goes to out of square's right side
+                        if (j == n)
+                                j = 0;
+
+                        //  if next number is goes to out of square's upper side
+                        if (i < 0)
+                                i = n - 1;
+                }
+                if (magic_square[i][j])
+                {
+                        i = i + 2;
+                        j = j - 1;
+                        continue;
+                }
+                else
+                        magic_square[i][j] = num++; // set number
+
+                j++;
+                i--; // 1st condition
+        }
+
+
+        // Print magic square
+        for (i = 0; i < n; i++)
+        {
+                for (j = 0; j < n; j++)
+                        printf("%3d ", magic_square[i][j]);
+                printf("\n");
+        }
+}
+
+int main()
+{
+        char choice;
+        do
+        {
+                // initlizing num
+                int num;
+                printf("Enter a number: ");
+                scanf("%d",&num);
+                // declaring pointer
+                int* magic_square[num];
+                // conditon to check odd or even
+                if(num % 2 == 0 || num <= 0)
+                {
+                        printf("Error:please enter odd positive number only\n");
+                        exit(0);
+                }
+                // allocating memory
+                for(int i=0;i<num;i++)
+                { 
+                        magic_square[i]=(int*)calloc(num,sizeof(int));
+                } 
+                // function call
+
+                generate_square(magic_square,num);
+                // freeing memory
+                for(int i=0;i<num;i++)
+                { 
+                        free( magic_square[i]);
+                } 
+                printf("Do you want to continue?(y/Y):");
+                scanf("\n%c", &choice);
+        } 
+        while (choice == 'y' || choice == 'Y');
+        return 0;
+}
