@@ -1,0 +1,157 @@
+/*
+Name    : Nishanth R
+Date    : 18.12.2021
+Description  :  WAP  to implement my_scanf() function
+Input :
+enter a character:a
+you entered a
+enter a number:20
+you entered 20
+enter a string:hii
+you entered hii
+enter a float  number:12.45
+you enterd 12.450000
+entered a double number:5.6
+you entered 5.600000
+do you want to continue(y/Y):
+*/
+
+
+#include<stdio.h>
+#include<stdarg.h>
+#include<stdio_ext.h>
+#include<stdlib.h>
+
+//def of fun
+//fun defination
+int atoi_ati(const char *ptr)
+{
+        //intializing the variables
+        int x = 0, flag = 1, count = 0;
+        while (*ptr)
+        {
+                while(count == 0)
+                {
+                        //check the condition
+                        if (flag == 1 && *ptr == '-')
+                        {
+                                flag = -1;
+                                ptr++;
+                        }
+                        // check the condition
+                        else if (flag == 1 && *ptr == '+')
+                        {
+                                flag = 1;
+                                ptr++;
+                        }
+                        count++;
+                }
+                // check the condition
+                if (*ptr >= 48 && *ptr <= 57)
+                {
+                        x = (x * 10) + (*ptr - '0');
+                        ptr++;
+                }
+                else
+                        break;
+        }
+        return x * flag;
+}
+//declaration of fun
+void my_scanf(const char*format,...)
+{
+        va_list ap;
+        const char *arg = format;
+        va_start(ap,format);
+        int *n;
+        char *ch,str1[100],*str;
+        float *fp;
+        double *dp;
+
+        while(*arg)
+        {
+                // check the condition
+                if(*arg == '%')
+                {
+                        switch(*++arg)
+                        {
+                                case 'c':
+                                        ch = va_arg(ap,char*);
+                                        *ch = getchar();
+                                        break;
+                                case 'd':
+                                        fgets(str1,10,stdin);
+                                        n = va_arg(ap,int*);
+                                        *n = atoi_ati(str1);
+                                        break;
+                                case 's':
+                                        str = (char*)(va_arg(ap,char*));
+                                        int count = 0;
+                                        for(char ch = getchar() ; ch != 10 ; ch = getchar())
+                                        {
+                                                str[count] = ch;
+                                                count++;
+                                        }
+                                        str[count] = '\0';
+                                        break;
+                                case 'f':
+                                        fgets(str1,10,stdin);
+                                        fp = va_arg(ap,float*);
+                                        *fp = atof(str1);
+                                        break;
+                                case 'l':
+                                        fgets(str1,10,stdin);
+                                        dp = va_arg(ap,double*);
+                                        *dp = atof(str1);
+                                        break;
+                        }
+                }
+                arg++;
+        }
+        va_end(ap);
+}
+
+int main()
+{
+        //declaring the variables
+        char choice;
+        do
+        {
+                char ch;
+                printf("enter a character:");
+                //calling fun
+                my_scanf(" %c",&ch);
+                printf("you entered %c\n",ch);
+                while((ch = getchar()) != '\n');
+
+                int num;
+                printf("enter a number:");
+                //calling fun
+                my_scanf(" %d",&num);
+                printf("you entered %d\n",num);
+
+
+                char str[200];
+                printf("enter a string:");
+                //calling fun
+                my_scanf(" %s",str);
+                printf("you entered %s\n",str);
+
+                float f;
+                printf("enter a float  number:");
+                //calling fun
+                my_scanf("%f",&f);
+                printf("you enterd %f\n",f);
+
+                double d;
+                printf("entered a double number:");
+                //calling fun
+                my_scanf("%lf",&d);
+                printf("you entered %lf\n",d);
+
+                printf("do you want to continue(y/Y):");
+                my_scanf(" %c",&choice);
+                getchar();
+        }while(choice == 'y' || choice == 'Y');
+        return 0;
+}
