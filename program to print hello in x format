@@ -1,0 +1,61 @@
+	
+/*
+Name : Nishanth R
+Date : 06.11.2021
+Description : program to print hello in x format
+Input: Enter the number lines:7
+Output:
+Hello     Hello
+ Hello   Hello
+  Hello Hello  
+   HelloHello   
+  Hello Hello  
+ Hello   Hello
+Hello     Hello
+
+*/
+
+#include<stdio.h>
+int main()
+{
+        char choice;
+        do
+        {
+                int range=1,num; // initilizing values
+                printf("Enter the number lines:");
+                scanf("%d",&num);
+                for (int i=1;i <= 5; i++) // running loop for range
+                {
+                        range=range*2;
+                }
+                if ( num > 0) // conditon for positive
+                {
+                        if (num < range) // conditon for numbr between range
+                        {
+
+                                for (int row=1;row <= num; row++)  // for loop for row
+                                {
+                                        for (int col=1;col<=num;col++)  // for loop for colomn
+                                        {
+                                                if ((row == col) && (row + col) == (num + 1))  // condition to print hellohello
+                                                {
+                                                        printf("HelloHello");
+                                                }
+                                                else if ((row == col) || (row + col) == (num + 1)) //codition to print hello
+                                                        printf("Hello");
+                                                else
+                                                        printf(" "); // otherwise print space
+
+                                        }
+                                        printf("\n");
+                                }
+                        }
+                        else
+                                printf("Error:Invalid input,out of range\n"); // out of range
+                }
+                else
+                        printf("Error: Enter only positive numbers\n");
+                printf("Do you want to continue?(y/Y):");
+                scanf(" %c",&choice);
+        }while(choice == 'y'| choice == 'Y');
+}
