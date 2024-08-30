@@ -1,0 +1,44 @@
+	
+/*
+Name : Nishanth R
+Date : 10.11.2021
+Desciption : program to prints bits of number
+Input :Enter the number :12
+Output :
+Binary number for 12: 00000000000000000000000000001100
+Binary numbers for -12: 11111111111111111111111111110100
+
+*/
+
+
+
+#include<stdio.h>
+int main()
+{
+        char choice;
+        do
+        {
+                int num,neg;  //intilizing variables
+                printf("enter the number:");
+                scanf("%d",&num);
+                neg=(~num)+1; // getting negative number of entered number
+                printf("Binary number for %d: ",num);
+                for(int i=31;i>=0;i--) // iterate loops to 32 bit
+                {
+                        num&1<<i ? printf("1"):printf("0"); // using ternory operator to print binary numbers
+                }
+                printf("\n");
+                printf("Binary numbers for %d: ",neg);
+                for(int j=31;j>=0;j--)
+
+                {
+                        neg&1<<j ? printf("1"):printf("0");
+                }
+
+                printf("\n");
+                printf("Do you want to continue(y/Y)?:");
+                scanf(" %c",&choice);
+        }while (choice == 'y'|| choice == 'Y');
+
+
+}
