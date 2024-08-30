@@ -1,0 +1,153 @@
+	
+/*
+ * Name:            Nishanth R
+ * Date:            19.11.2021
+ * Description:     bitwise functions
+ * Sample execution: -
+ *                  Select bit operation from below list
+ *                  1. get_nbits
+ *                  2. replace_nbits
+ *                  3. get_nbits_from_pos
+ *                  4. replace_nbits_from_pos
+ *                  5. toggle_bits_from_pos
+ *                  6. print_bits
+ *                  Enter your choice: 3   
+ *                  Enter num : 12
+ *                  Enter n : 3
+ *                  Enter pos : 5
+ *                  Value at 12[5(pos):3(bits)] -> 8
+ *                  Do you want to continue(y/Y) : n
+ */
+
+#include<stdio.h>
+
+//This function to get n bits from last
+int get_last_n_bits(int n, int num)
+{
+    return ((1 << n) - 1) & num;
+}
+
+//This function to replace n bits from last
+int replace_last_n_bits(int n,int num,int val)
+{
+    return ( ~ ((1 << n) - 1) & num) | (((1 << n) - 1) & val);
+}
+
+//This function to get n bits from position
+int get_n_bits_from_position(int n,int position,int num)
+{
+    return (((1 << n) - 1) << (position - n + 1 )) & num;
+}
+
+//This function to replace n bits from position
+int replace_n_bits_from_position(int n,int pos,int num,int val)
+{
+    return ( ~ (((1 << n) - 1) << (pos - n + 1)) & num) | ((((1 << n) - 1) & val) << (pos - n + 1));
+}
+
+//This function to togle n bits from position
+int togle_n_bit_from_pos(int n,int num,int pos)
+{
+    return (((1 << n) - 1) << (pos - n + 1)) ^ num;
+}
+
+//This function to print bits
+void print_bits(int num)
+{
+    printf("%d --> ",num);
+    for(int i = 31; i >= 0;i--)
+        printf("%d",num & (1 << i) ? 1 : 0);
+    printf("\n");
+}
+
+//main function
+int main()
+{
+    //choice
+    char loop_choice;
+
+    //loop
+    do{
+
+        //choice
+        int choice;
+
+        //read choice
+        printf("Select bit operation from below list\n1. get_nbits\n2. replace_nbits\n3. get_nbits_from_pos\n4. replace_nbits_from_pos\n5. toggle_bits_from_pos\n6. print_bits\nEnter your choice:");
+        scanf("%d",&choice);
+        
+        //veriable declaration
+        int num,n,pos,val;
+
+        //switch case based on choice
+        switch (choice)
+        {
+            case 1:
+                printf("Enter number :");
+                scanf("%d",&num);
+                printf("Enter bit size :");
+                scanf("%d",&n);
+                printf("last %d bit value --> %d\n",n,get_last_n_bits(n,num));
+                break;
+            case 2:
+                printf("Enter number :");
+                scanf("%d",&num);
+                printf("Enter bit size :");
+                scanf("%d",&n);
+                printf("Enter value :");
+                scanf("%d",&val);
+                printf("After replace last %d bit--> %d\n",n,replace_last_n_bits(n,num,val));
+                break;
+            case 3:
+                printf("Enter number :");
+                scanf("%d",&num);
+                printf("Enter bit n:");
+                scanf("%d",&n);
+                printf("Enter position :");
+                scanf("%d",&pos);
+                if(n <= pos)
+                    printf("Get postion %d to %d bits --> %d\n",pos,n,get_n_bits_from_position(n,pos,num));
+                else
+                    printf("Enter valid input like n < position\n");
+                break;
+            case 4:
+                printf("Enter number :");
+                scanf("%d",&num);
+                printf("Enter bit size :");
+                scanf("%d",&n);
+                printf("Enter position :");
+                scanf("%d",&pos);
+                if(n <= pos)
+                {
+                    printf("Enter value :");
+                    scanf("%d\n",&val);
+                    printf("After replace postition %d to %d bits",pos,replace_n_bits_from_position(n,pos,num,val));
+                }
+                else
+                    printf("Enter valid input like n < position\n");
+                break;
+            case 5:
+                printf("Enter number :");
+                scanf("%d",&num);
+                printf("Enter bit size :");
+                scanf("%d",&n);
+                printf("Enter position :");
+                scanf("%d",&pos);
+                if(n <= pos)
+                {
+                    printf("togle %d position to %d bits --> %d\n",pos,n,togle_n_bit_from_pos(n,num,pos));
+                }
+                else
+                    printf("Enter valid input like n < position\n");
+                break;
+            case 6:
+                printf("Enter a numbar :");
+                scanf("%d",&num);
+                print_bits(num);
+                break;
+
+        }
+        printf("Do you want to continue(y/Y) :");
+        scanf("\n%c",&loop_choice);
+    }while(loop_choice =='y' || loop_choice=='Y');
+}
