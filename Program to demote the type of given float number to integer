@@ -1,0 +1,90 @@
+/*
+Name : Nishanth R
+Date : 25:12:2021
+Description : Program to demote the type of given float number to integer
+Input:./demote_int
+Output:Enter the real number : 1.73
+0 01111111 10111010111000010100100
+The demoted integer value of float variable is 1
+Do you want to continue (y/n)? y
+Enter the real number : 12.34
+0 10000010 10001010111000010100100
+The demoted integer value of float variable is 12
+Do you want to continue (y/n)? n
+
+*/
+
+#include <stdio.h>
+struct   //definition for structure
+{
+    unsigned mantissa : 23;
+    unsigned exponent : 8;
+    unsigned sign : 1;
+}bit;
+
+int main()
+{
+    char choice; //declare choice variable
+    do{
+        float int_value1,num; //declare the variables
+        int int_value,i,temp4;
+        printf("Enter the real number : ");
+        scanf("%f",&num);
+        void *s1 = &num; //store num in void* s1
+        unsigned char temp1=0,temp2=0,val_bits=0;
+
+        (*((char *)s1 + 3) & ( 1 << 7 )) ? printf("1") : printf("0");//assign values for sign bit
+    printf(" ");
+
+        temp1 = *((char *)s1 + 3) & ( ( 1 << 7 ) - 1 ); //assign value for exponent bits
+        temp1 = temp1 << 1;
+
+        if (*((char *)s1 + 2) & ( 1 << 7 ))
+            temp2=1;
+        else
+            temp2=0;
+
+        temp1 = temp1 | temp2 ;
+        bit.exponent = temp1;
+
+        for ( i=7; i>=0; i-- ) //print binary format for exponent bit
+        {
+             (bit.exponent & ( 1 << i )) ? printf("1") : printf("0");
+           
+        }
+        printf(" ");
+
+        bit.mantissa = (*((unsigned char *)s1 + 2) & (( 1 << 7 ) -1)) << 16; //assign value for mantissa bits
+        temp4 = *((unsigned char *)s1 +1);
+        bit.mantissa = bit.mantissa | temp4 << 8;
+        temp4 = *((unsigned char *)s1);
+        bit.mantissa = bit.mantissa | temp4;
+        for ( i=22; i>=0; i-- ) //print the binary format for mantissa part
+        {
+            (bit.mantissa & ( 1 << i )) ? printf("1") : printf("0");
+        }
+    printf(" ");
+
+        if ( bit.exponent < 127 ) //condition to check exponent bits less than 127
+        {
+            int_value1 = 0;
+        }
+        else
+        {
+            val_bits = bit.exponent-127; //subract exponent value with no.of bits
+            int_value = bit.mantissa >> (23-val_bits); //extract only 3 bits from mantissa
+            int_value=int_value | ( 1 << val_bits); //extract mantissa bits and merge with 1
+
+            if ( bit.sign == 1 )
+                int_value1 = -int_value; //store -ve value to int_value1
+            else
+                int_value1 = int_value; //store +ve value to int_value1
+        }
+        printf("\nThe demoted integer value of float variable is %g\n",int_value1);
+
+        printf("Do you want to continue (y/n)? "); //promot user for continue option
+        getchar();
+        scanf("%c",&choice);
+    }while(choice == 'Y' || choice == 'y');
+    return 0;
+}
