@@ -1,0 +1,113 @@
+/*
+Name : Nishanth R
+Date : 24:12:2021
+Description :Program to print bits of float & double in IEEE std.
+Input:./print_bits_fd
+Output:Select the data type:
+1.float
+2.double
+Enter your Choice: 1
+
+Enter the float value: 1.73
+
+Sign    Exponent    Mantissa
+-------------------------------------------------------------------------
+0    01111111    10111010111000010100100
+
+
+ */
+
+#include <stdio.h>
+int print_bits(int num, int i) //function definition for printbits
+{
+    int k; //declare variable
+    for (k = i - 1; k >= 0; k--) //print the binary representation of variable k
+    {
+         ((num >> k) & 1) ? printf("1") : printf("0");
+    }
+}
+
+void print_ieee(void *ptr, int choice) //function definition for print ieee std
+{
+    signed int ival, mantissa, exponent, sign; //declare the variables
+    signed long int lval, lmantissa, lexponent;
+
+    printf ("\nSign\tExponent\tMantissa\n");  //display the standard IEEE format
+    printf ("-------------------------------------------------------------------------\n");
+
+    switch(choice) //switch case for float and double
+    {
+        case 1:
+            //Type casting float value to integer to represent in binary format
+            ival = * ( unsigned int * ) ptr;
+            mantissa = ( ival & 0x7fffff );  //Mask to get only 23 mantissa bits
+            ival = ival >> 23;               //Remove the 23 mantessa bits by right shift
+            exponent = ( ival  & 0xff );    //Mask to get only 8 exponent bits
+            ival = ival >> 8;               //Remove the 8 exponent bits by right shift
+            sign = ( ival & 1 );            //Mask = 1 to get only 1 sign bits
+
+            //Print the IEEE binary representation of the float value
+            printf ("%d\t", sign);
+            print_bits ( exponent, 8 ); //Call print_bits function to print exponent value
+            printf ("\t");
+            print_bits ( mantissa, 23 ); //Call print_bits function to print mantissa value
+            printf ("\n");
+            break;
+
+        case 2:
+            //Type casting double value to integer to represent in binary format
+            lval = * ( unsigned long int * ) ptr;
+            lmantissa = ( lval & 0xfffffffffffff );   //Mask to get only 23 mantissa bits
+            lval = lval >> 52;                        //Remove the 52 mantessa bits by right shift
+            lexponent = ( lval  & 0x7ff );            //Mask to get only 11 exponent bits
+            lval = lval >> 11;                        //Remove the 11 exponent bits by right shift
+            sign = ( lval & 1 );                      //Mask = 1 to get only 1 sign bits
+            lval = lmantissa;
+            lval = lval >> 31;                        //Shift lmantissa for 32 times
+
+            //Print the ieee binary representation of the double value
+            printf ("%d\t", sign);
+            print_bits ( lexponent, 11 ); //Call print_bits function to print exponent value
+            printf ("\t");
+            print_bits ( lval, 21 );      //print_bits prints for 32 times , shift print the following 21 bits
+            print_bits ( lmantissa, 31 ); //Call print_bits function to print mantissa value
+            printf ("\n");
+            break;
+    }
+}
+
+int main ()
+{
+    float fnum; //declare float and double
+    double dnum;
+    int option;
+    char choice;
+
+    do{
+        //Read user's choice of data type
+        printf ("Select the data type:\n1.float\n2.double\nEnter your Choice: ");
+        scanf ("%d", &option);
+        switch(option)
+        {
+            case 1: //Float
+                printf ("\nEnter the float value: ");
+                scanf ("%f", &fnum );
+                print_ieee ( &fnum, option ); //function call for print ieee
+                break;
+
+            case 2: //Double
+                printf ("\nEnter the double value: ");
+                scanf ("%lf", &dnum );
+                print_ieee ( &dnum, option ); //function call for print ieee
+                break;
+
+            default:
+                printf ("\nInvalid option\n");
+                break;
+        }
+        printf ("\nDo you want to continue(y/n)?"); //promot user for continue option
+        scanf (" %c", &choice);
+        }while(choice == 'y' && choice == 'Y');
+
+    return 0;
+}
