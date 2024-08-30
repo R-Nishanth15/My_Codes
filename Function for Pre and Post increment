@@ -1,0 +1,65 @@
+/*
+Name: Nishanth R
+Date: 28.11.2021
+Description: Function for Pre and Post increment
+Input: Enter the value for num : 2
+       Enter the operation:
+       1. Pre-Increment
+       2. Post-Increment
+       Choice : 1
+Output :
+         return = 3
+         num = 3
+*/
+#include<stdio.h>
+int pre_increment( int*num ) // function for pre increment
+{
+        for (int i=0; i<=31; i++)
+        {
+                if( (*num >> i & 1) == 0 )
+                {
+                        *num = *num ^ (1 << (i+1))-1 ;
+                        return *num;
+                }
+        }
+}
+int post_increment(int*num) // function for post increment
+{
+        int temp = *num;
+        for (int i=0; i<=31; i++)
+        {
+                if( (*num >> i & 1) == 0 )
+                {
+                        *num = *num ^ (1 << (i+1)) -1;
+                        return temp;
+                }
+        }
+}
+int main()
+{
+        char ch;
+        do{
+                int num,choice,ret; // initlizing values
+                printf("Enter the value for num : ");
+                scanf("%d",&num);
+                printf("Enter the operation: \n1. Pre-Increment\n2. Post-Increment\n");
+                printf("Choice : ");
+                scanf("%d",&choice);
+                switch (choice) // switch case
+                {
+                        case 1:
+                                ret=pre_increment(&num); // function call
+                                printf("return = %d\nnum = %d\n",ret,num);
+                                break;
+                        case 2:
+                                ret=post_increment(&num); // function call
+                                printf("return = %d\nnum = %d\n",ret,num);
+                                break;
+                        default:
+                                printf("Invalid Option");
+                                break;
+                }
+                printf("Do you want to continue(y/n): ");
+                scanf("\n%c",&ch);
+        }while( ch == 'y' || ch == 'Y' );
+}
