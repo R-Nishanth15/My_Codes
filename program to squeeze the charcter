@@ -1,0 +1,58 @@
+	
+/*
+Name :Nishanth R
+Date :10.12.2021
+Description:program to squeeze the charcter
+Input: Enter str1: Dennis Ritchie
+       Enter str2: Linux
+Output: Des Rtche
+*/
+#include<stdio.h>
+#include<string.h>
+
+char squeeze(char*str1,char*str2)   // function for squeeze
+{
+        int i=0,j=0,flag,count=0;  // initlizing values
+        for ( i=0;i<strlen(str1)-1;)  // for loop for comparing charc
+        {
+                flag=0; // assigning flag =0
+                for ( j=0;j<strlen(str2)-1;)
+                {
+                        if(str1[i] == str2[j])   // if char in each strings are same
+                        {
+                                flag=1; // assigning flag = 1
+                        }
+                        j++; // increment j
+                }
+
+                if (flag == 0) // condition for flag =0
+                {
+                        str1[count++] = str1[i]; // storing non repeating char
+
+                }
+                i++; // incrementing i
+        }
+
+
+        str1[count] = '\0'; // assignig last char as \0
+        return 0;
+}
+
+int main()
+{
+        char choice;
+        do
+        {
+                char str1[100],str2[100];  // initlizing char arrays
+                printf("Enter str1: ");
+                fgets(str1,100,stdin); // getting char for first string
+                printf("Enter str2: ");
+                fgets(str2,100,stdin); // getting char for second string
+                squeeze(str1,str2); // function call
+                printf("%s\n",str1); //print  string
+                printf("Do you want to continue ?(y/n):");
+                scanf(" %c",&choice);
+                getchar();
+        }
+        while(choice == 'y' || choice == 'Y');
+}
