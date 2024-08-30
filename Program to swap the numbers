@@ -1,0 +1,40 @@
+	
+/*
+Name : Nishanth R
+Date : 24.11.2021
+Description : Program to swap the numbers
+Input : Enter the Num1:10
+        Enter the Num2:20
+Output: Num1=20
+        Num2=10
+
+*/        
+#include<stdio.h>
+int swap(int *Num1,int *Num2)  // function for swaping
+{
+        // in this process adding Num1 and Num2 then stored in Num1.
+        // to get Num2, Num2 is subracted from Num1
+        // to get Num1, Num1 is subracted from Num2
+        // for these process done by using bitwise operator (^)
+        *Num1=(*Num1^*Num2);
+        *Num2=(*Num1^*Num2);
+        *Num1=(*Num1^*Num2);
+}
+int main()
+{
+        char choice;
+        do
+        {
+                int Num1,Num2; // initlizing numbers
+                printf("Enter the Num1:");
+                scanf("%d",&Num1);
+                printf("Enter the Num2:");
+                scanf("%d",&Num2);
+                swap(&Num1,&Num2); // calling swap function
+                printf("After swaping\n");
+                printf("Num1=%d\nNum2=%d\n",Num1,Num2);
+                printf("Do you want to continue(y/y):");
+                scanf("\n%c",&choice);
+        }
+        while(choice == 'y' || choice == 'Y');
+}
