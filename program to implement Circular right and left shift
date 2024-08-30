@@ -1,0 +1,82 @@
+/*
+Name : Nishanth R
+Date : 21.11.2021
+Description : Write program to implement Circular right and left shift
+Input:
+       Enter num:12
+       Enter n value:3
+output:
+       Possible operations
+       1.Circular right shift
+       2.Circular left shift
+       Enter your choice:1
+       Binary form of number:00000000000000000000000000001100
+       After circular right shifting by 3 :10000000000000000000000000000001
+
+*/
+
+
+#include<stdio.h>
+// function for circular right shift
+int circular_right_shift(int num,int n)
+{
+        return (num << (32-n)) | (num >> n) & ~(((1 << n) -1) << (32 -n ));
+}
+// function for circular left shift
+int circular_left_shift(int num,int n)
+{
+        return (num << n) | (num >> (32-n)) & ~((( 1 << ( 32 -n )) -1) << n);
+}
+// function to print bits of entered num
+int print_bits(int num,int i)
+{
+        for (int i=31 ; i >= 0 ; i--)
+        {
+                num & 1 << i ? printf("1") : printf("0");
+        }
+}
+int main()
+{
+        char choice;
+        do
+        {
+                int num,i,n,select,res,bits;
+                printf("Enter num:");
+                scanf("%d",&num);
+                printf("Enter n value:");
+                scanf("%d",&n);
+                printf("Possible operations\n1.Circular right shift\n2.Circular left shift\n");
+                printf("Enter your choice:");
+                scanf("%d",&select);
+                printf("Binary form of number:");
+                print_bits(num,i); //functions call to orint bits of num
+                printf("\n");
+                switch(select)  // switch case to match the option
+                {
+                        case 1:res = circular_right_shift(num,n); // function calling to do circular right shift
+                               printf("After circular right shifting by %d :",n);
+                               for(int i =31 ; i >= 0 ; i--)
+                               {
+                                       res & 1 << i ? printf("1") : printf("0"); // ternary operator to print binary numbers
+                               }
+                               printf("\n");
+                               break;
+
+                        case 2:res = circular_left_shift(num,n); // function calling to do circular left shift
+                               printf("After circular left shifting by %d :",n);
+                               for(int i =31 ; i >= 0 ; i--)
+                               {
+                                       res & 1 << i ? printf("1") : printf("0");  // ternary operator to print binary numbers
+                               }
+                               printf("\n");
+                               break;
+
+                        default:printf("Error:Enter valid option\n");
+                                break;
+                }
+                printf("Do you want to continue?(y/Y):");
+                scanf(" %c",&choice);
+        }while(choice == 'y' || choice == 'Y'); // condition to continue
+
+
+}
