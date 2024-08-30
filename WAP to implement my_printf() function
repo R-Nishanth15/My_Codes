@@ -1,0 +1,114 @@
+/*
+Name   : Nishanth R
+Date  :  19.12.2021
+Description  : WAP to implement my_printf() function
+Input: Enter the num,char,string:10 a nish
+output:
+       10
+       a
+       nish
+do you want to continue(y/Y):n
+*/
+
+#include<stdio.h>
+#include<stdarg.h>
+
+//definatin of fun
+int my_itoa(int num,char*ptr)
+{
+        //declare the variables
+        int rev = 0,mod,var,mod1,num1;
+        num1 = num;
+        //check the condition
+        if( num < 0 )
+        {
+                *ptr = '-'+0;
+                num = -num;
+                ptr++;
+        }while( num > 0 )
+        {
+                mod=num%10;
+                rev = (rev * 10) + mod;
+                num = num / 10;
+        }
+        while( rev > 0)
+        {
+                var = rev % 10;
+                var = var+'0';
+                *ptr = var;
+                ptr++;
+                rev = rev / 10;
+        }
+        while(num1)
+        {
+                mod1 = num1%10;
+                if(mod1 == 0)
+                {
+                        *ptr = 0+'0';
+                        ptr++;
+                }
+                else
+                        break;
+                num1 = num1 / 10;
+        }
+        *ptr = '\0';
+}
+
+//defination of a fun from variadic
+void my_printf(char*fmt,...)
+{
+        //declaring the variables
+        va_list ap;
+        va_start(ap,fmt);
+        int x;
+        char y,*str,var[20];
+        while(*fmt)
+        {
+                //check the condition
+                if(*fmt == '%')
+                {
+                        fmt++;
+                        switch(*fmt)
+                        {
+                                case 'd':
+                                        x = va_arg(ap,int);
+                                        //calling the fun
+                                        my_itoa(x,var);
+                                        puts(var);
+                                        break;
+                                case 'c':
+                                        y = va_arg(ap,int);
+                                        putc(y,stdout);
+                                        break;
+                                case 's':
+                                        str = va_arg(ap,char*);
+                                        puts(str);
+                                        break;
+                        }
+                }
+                else
+                        putchar(*fmt);
+                fmt++;
+        }
+        va_end(ap);
+}
+int main()
+{
+        // declaration of variables
+        char choice;
+        int num;
+        do
+        {
+                //declaring the variables
+                char ch;
+                char str[20];
+                int num;
+                //calling fun
+                my_printf("Enter the num,char,string:");
+                scanf("%d %c %[^\n]",&num,&ch,str);
+                my_printf("Output:\n%d%c\n%s",num,ch,str);
+                printf("Do you want to continue(y/Y):");
+                scanf(" %c",&choice);
+        }while(choice == 'y' || choice == 'Y');
+        return 0;
+}
