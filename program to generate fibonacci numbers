@@ -1,0 +1,67 @@
+Name : Nishanth R
+Date : 2.11.2021
+Description : program to generate fibonacci numbers
+Input: Enter the number: 5
+Output:0,1,1,2,3,5
+*/
+
+#include<stdio.h>
+int main()
+{
+        char choice;
+        do
+        {
+                int first=0,pre=1,nxt=0,num,range1=1,range2;  //initilizing the values
+                printf("Enter the number:");
+                scanf("%d",&num);              //getting input
+                for (int i = 0;i < 20;i++)    //using for for getting range
+                {
+                        range1 = range1 * 2;
+                }
+                range2 = -1 * range1;
+                if ( num > range2 && num < range1 ) //checking entered num is beteen the range
+                {
+                        if ( num != 0 ) // checking for entered num is non zero
+                        {
+                                if ( num > 0 ) // conditon for positive number
+                                {
+                                        printf("%d,",first); // printing first value
+                                        while (nxt <= num) // running while loop till the entere num
+                                        {
+                                                printf("%d,",pre);
+                                                nxt = first+pre; // adding first and previous values and stored in nxt value
+                                                first = pre; // swaping previous to first
+                                                pre = nxt; // swaping nxt value to previous value
+                                        }
+                                        printf("\n");
+                                }
+
+                                if ( num < 0 )
+                                {
+                                        printf("%d,",first);
+                                        while (nxt >= num) // running while loop till enterd num is greater than that number
+                                        {
+                                                printf("%d,",pre);
+                                                nxt = first-pre; // subracting first and previous and stored in nxt value
+                                                first = pre; // swaping pre to first
+                                                pre = nxt; // swaping nxt to pre
+                                                if ( first == num ) //condtion to stop the loop
+                                                {
+                                                        break;
+                                                }
+                                        }
+                                }
+                                printf("\n");
+                        }
+                        else
+                        {
+                                printf("0\n"); // for entered num is 0
+                        }
+
+                }
+                else
+                        printf("Error:NUmber out of range,Please enter value -2^20 < 'N' < 2^20\n");
+                printf("Do you want to continue (y/Y)?");
+                scanf(" %c",&choice);
+        }while (choice == 'y'|| choice == 'Y'); //condition for choice
+}
