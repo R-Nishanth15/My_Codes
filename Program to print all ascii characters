@@ -1,0 +1,34 @@
+/*
+Name:Nishanth R
+Date:30.10.2021
+Description:Program to print all ascii characters
+Input: ascii
+Output: ascii table
+*/
+
+
+#include<stdio.h>
+int main()
+{
+      //for the heading of the table
+    printf("Oct\t Dec\t Hex\t Char\n");
+    printf("---\t ---\t ---\t ---\n");
+    //iterating the loop from zero to 127
+    for(int i = 0;i < 128;i++)
+    {   
+    //since the char from 0-32 are non printable characters so printing char as non printable characters
+    if(i >= 0 && i<=32 )
+    {
+       printf("%o\t %d\t %x\t Non printable characters\n",i,i,i);
+    }
+    //127 is also non printable character
+    else if(i == 127)      
+    {
+       printf("%o\t %d\t %x\t Non printable characters\n",i,i,i);
+    }
+    else
+        //%o is to print octal,%d to print decimal,%x to print hexa and %c to print char
+       printf("%o\t %d\t %x\t %c\n",i,i,i,i);
+    }
+    return 0;
+}
