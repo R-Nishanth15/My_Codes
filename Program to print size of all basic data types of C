@@ -1,0 +1,33 @@
+/*
+ * Name : Nishanth R
+ * Date : 27.10.2021
+ * Description :Program to print size of all basic data types of C
+ * Sample o/p :
+size of int           : 4 bytes
+size of char          : 1 bytes
+size of float         : 4 bytes
+size of double        : 8 bytes
+size of void          : 1 bytes
+size of long long int : 8 bytes
+size of unsigned int  : 4 bytes
+size of long int      : 8 bytes
+size of short int     : 2 bytes
+size of long double   : 16 bytes
+
+ */
+
+
+#include<stdio.h>  
+int main()              //sizeof is used to know the size of data types.
+{
+        printf("size of int           : %zu bytes\n", sizeof(int));
+        printf("size of char          : %zu bytes\n", sizeof(char));
+        printf("size of float         : %zu bytes\n", sizeof(float));
+        printf("size of double        : %zu bytes\n", sizeof(double));
+        printf("size of void          : %zu bytes\n", sizeof(void));
+        printf("size of long long int : %zu bytes\n", sizeof(long long int));
+        printf("size of unsigned int  : %zu bytes\n", sizeof(unsigned int));
+        printf("size of long int      : %zu bytes\n", sizeof(long int));
+        printf("size of short int     : %zu bytes\n", sizeof(short int));
+        printf("size of long double   : %zu bytes\n", sizeof(long double));
+}
