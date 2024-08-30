@@ -1,0 +1,48 @@
+/*
+Name : Nishanth R
+Date : 12.12.2021
+Descrption :program to replace each string of one or more blanks by a single blank
+Input : Enter the string with more spaces between words : hello        world
+Output: String with reduces space : hello world
+Do you want to continue(y/Y)?
+*/
+
+
+
+#include<stdio.h>
+#include<stdio_ext.h>
+void remove_multi_space(void)
+{
+    char ch , prev , str[100] ; //initlizing varialbes
+    int count = 0;                 
+    printf("Enter the string with more spaces between words : "); // getting input
+    while((ch = getchar()) != '\n')
+    {
+    if(ch == '\t' || ch == ' ')  // condition for tab and space
+    {
+        if(prev != ' ' && count != 0)
+        {
+        str[count++] = ' ';
+        prev = ' ';
+        }
+    }
+    else // if char is not space
+    {
+        str[count++] = ch ;
+        prev = ch ;
+    }
+    }
+    str[count] = '\0';
+    printf("String with reduces space : %s\n" , str);
+}
+int main()
+{
+    char choice ;
+    do
+    {
+    __fpurge(stdin); // clearing buffer
+    remove_multi_space(); // function call
+    printf("Do you want to continue(y/Y)?");
+    scanf(" %c",&choice);
+    }while(choice  == 'y' || choice =='Y');
+}
