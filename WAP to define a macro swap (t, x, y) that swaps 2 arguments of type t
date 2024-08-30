@@ -1,0 +1,150 @@
+/*
+Name : Nishanth R
+Date : 17.12.2021
+Description :WAP to define a macro swap (t, x, y) that swaps 2 arguments of type t
+Input : 1.int
+        2.char
+        3.short
+        4.float
+        5.double
+        6.string
+        Enter your choice: 1
+        Enter Num1: 10
+        Enter Num2: 20
+Output:
+        After Swapping:
+        Num1 = 20
+        Num2 = 10
+        Do you want to continue(y/n):
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+
+// defining Swap macro to do swap function
+
+
+#define SWAP(type,num1,num2) \
+{  \
+        type temp = num1 ; \
+        num1 = num2 ;\
+        num2 = temp;\
+}
+
+
+int main()
+{
+        char ch;
+
+        do
+        {
+                int choice;
+                printf("\n1.int\n2.char\n3.short\n4.float\n5.double\n6.string\nEnter your choice: ");
+                scanf("%d",&choice);
+                // switch for options
+                switch(choice)
+                {
+                        // case 1 for int value swapping
+                        case 1:
+                                {
+                                        int num1,num2;
+                                        printf("Enter Num1: ");
+                                        scanf("%d",&num1);
+                                        printf("Enter Num2: ");
+                                        scanf("%d",&num2);
+                                        // placing macro
+                                        SWAP(int,num1,num2);
+                                        printf("After Swapping:\n");
+                                        printf("Num1 = %d\n",num1);
+                                        printf("Num2 = %d\n",num2);
+                                        break;
+                                }
+                        // case 2 for char swapping
+                        case 2:
+                                {
+                                        char char1,char2;
+                                        printf("Enter Char1: ");
+                                        scanf(" %c",&char1);
+                                        printf("Enter Char2: ");
+                                        scanf(" %c",&char2);
+                                        // placing macros
+                                        SWAP(char,char1,char2);
+                                        printf("After Swapping:\n");
+                                        printf("Char1 = %c\n",char1);
+                                        printf("Char2 = %c\n",char2);
+                                        break;
+                                }
+                        // case 3 forshort value swapping
+                        case 3:
+                                {
+                                        short num1,num2;
+                                        printf("Enter Num1: ");
+                                        scanf("%hd",&num1);
+                                        printf("Enter Num2: ");
+                                        scanf("%hd",&num2);
+                                        // placing mcros
+                                        SWAP(short,num1,num2);
+                                        printf("After Swapping:\n");
+                                        printf("Num1 = %hd\n",num1);
+                                        printf("Num2 = %hd\n",num2);
+                                        break;
+                                }
+                        // case 4 for float value swapping
+                        case 4:
+                                {
+                                        float num1,num2;
+                                        printf("Enter float Num1: ");
+                                        scanf("%f",&num1);
+                                        printf("Enter float Num2: ");
+                                        scanf("%f",&num2);
+                                        // placing macro
+                                        SWAP(float,num1,num2);
+                                        printf("After Swapping:\n");
+                                        printf("Num1 = %g\n",num1);
+                                        printf("Num2 = %g\n",num2);
+                                        break;
+                                }
+                        // case 5 for double values swapping
+                        case 5:
+                                {
+                                        double num1,num2;
+                                        printf("Enter double Num1: ");
+                                        scanf("%lf",&num1);
+                                        printf("Enter double Num2: ");
+                                        scanf("%lf",&num2);
+                                        printf("After Swapping:\n");
+                                        // placing macro
+                                        SWAP(double,num1,num2);
+                                        printf("Num1 = %g\n",num1);
+                                        printf("Num2 = %g\n",num2);
+                                        break;
+                                }
+                        // case 6 for string swapping
+                        case 6:
+                                {
+                                        // allocting memory to store string
+                                        char *str1=calloc(30,sizeof(char));
+                                        char *str2=calloc(30,sizeof(char));
+                                        printf("Enter string1: ");
+                                        scanf("%s",str1);
+                                        printf("Enter string2: ");
+                                        scanf("%s",str2);
+                                        // placing macro
+                                        SWAP(char*,str1,str2);
+                                        printf("After Swapping:\n");
+                                        printf("Str1 = %s\n",str1);
+                                        printf("Str2 = %s\n",str2);
+                                        free(str1);
+                                        free(str2);
+                                        break;
+                                }
+                        default:
+                                printf("Error:Invalid option\n");
+                                break;
+                }
+                printf("Do you want to continue(y/n):");
+                scanf(" %c",&ch);
+        }
+                while(ch == 'y' || ch == 'Y');
+
+}
