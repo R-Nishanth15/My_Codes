@@ -1,0 +1,63 @@
+/*#include<stdio.h>
+Name : Nishanth R
+Date : 03.12.2021
+Description : program to find no of characters,word count,line count
+Input :
+Output:
+hai
+hello
+word count:2
+line count:2
+character count:10
+
+*/
+
+#include<stdio_ext.h>
+int main()
+{
+    char choice;
+    do
+    {
+        char ch,temp=' ';
+        int line_count=0,word_count=0,char_count=0,flag=0;
+
+               //condition for  user initially gives EOF
+        if(ch=getchar()==EOF)  
+        {
+            printf("word count:%d\n",word_count);
+            printf("line count:%d\n",line_count);
+            printf("character count:%d\n",char_count);
+        }
+        else
+        {
+            while((ch=getchar())!=EOF) //getting input from the user till EOF
+            {
+                if( (ch==' ' || ch =='\n' ) ) //condition to count word after space or enter
+                {
+                    if(ch!=temp )    //condition to check  if prev and current character are space
+                        word_count++;
+                }
+                if(ch==' ' && temp=='\n' ||temp==' ' && ch=='\n') // condition for inputs space followed by enter
+
+                    word_count--;
+                if(ch=='\n') //condition to count line after enter
+                {
+                    line_count++;
+                }
+                char_count++; //to count character
+                temp=ch; //to store the char to check with next char
+            }
+            if (temp!='\n')  //condition for user gives enter
+
+                word_count++;
+            printf("word count:%d\n",word_count);
+            printf("line count:%d\n",line_count);
+            printf("character count:%d\n",char_count+1);
+        }   
+        printf("Do you want to continue?(y/Y):");
+        scanf("\n%c", &choice);
+        __fpurge(stdin);
+    }   
+    while (choice == 'y' || choice == 'Y');
+    return 0;
+}
