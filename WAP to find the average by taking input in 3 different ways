@@ -1,0 +1,159 @@
+	
+/*
+Name  : Nishanth R
+Date  : 23.12.2021
+Description : WAP to find the average by taking input in 3 different ways
+Input : Select the method to calculate average:
+        1. Scan from keyboard.
+        2. Proceed with environment variable arguments.
+        Enter you choice : 1
+        Enter the total number of integers : 4
+        Enter the elements : 3 5 10 7
+        Output : The average of entered numbers : 6.25
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+// fun defination for strtok
+char *my_strtok(char *str,const char *delim)
+{
+        //declaring  variables
+        static char *temp;
+        static int pos;
+        int j,start=pos;
+        //checking the condition
+        if(str!=NULL)
+                temp=str;
+        while(temp[pos]!='\0')
+        {
+                j=0;
+                while(delim[j]!='\0')
+                {
+                        if(delim[j]==temp[pos])
+                        {
+                                temp[pos]='\0';
+                                pos++;
+                                if(temp[start]!='\0')
+                                        return (&temp[start]);
+                                else
+                                {
+
+                                        start=pos;
+                                        pos--;
+                                        break;
+                                }
+                        }
+                        j++;
+                }
+                pos++;
+        }
+        if(temp[start]=='\0')
+        {
+                pos=0;
+                return NULL;
+        }
+        else
+                return(&temp[start]);
+}
+
+//function defination for atoi
+int my_atoi(const char *str)
+{
+        //intializing the variables
+        int res=0,flag=1,count=0;
+        while(*str)
+        {
+                if(count ==0)
+                {
+                        if(*str == '-')
+                        {
+                                flag =-1;
+                                str++;
+                        }
+                        else if(*str == '+')
+                        {
+                                flag=+1;
+                                str++;
+                        }
+                }
+                count++;
+                if(*str >= '0' && *str <= '9')
+                {
+                        res=res * 10 +(*str - '0');
+                        str++;
+                }
+
+                else
+                        break;
+        }
+        return res * flag;
+
+}
+
+
+int main(int argc,char **argv,char **env)
+{
+        //intializing the variables
+
+        int i=0,sum=0,*ptr=NULL,choice,num[100],n;
+        float avg;
+        char *str=NULL,*tok=NULL;
+        //enter and read values
+        printf("select the method to calculate average:\n1.scan from keyboard\n2.command line arguments\n3.proceed with environment variable arguments\nEnter your choice: ");
+        scanf("%d",&choice);
+        switch(choice)
+        {
+                case 1:
+                        //enter and read the values
+                        printf("enter the total number of integer: ");
+                        scanf("%d",&n);
+                        printf("enter the elements: ");
+                        //dynamic memory allocation
+                        ptr=(int*)malloc (n*sizeof(int));
+                        //checking the loop
+                        for(i=0;i<n;i++)
+                        {
+                                scanf("%d",(ptr+i));
+                                sum +=*(ptr + i);
+                        }
+                        avg = (float)sum/n;
+                        printf("the avrerage of the entered numbers: %g\n",avg);
+                        break;
+                case 2:
+                        //checking the condition
+                        if( argc > 1 )
+                        {
+                                for(i=1;i<argc;i++)
+                                {
+                                        //calling the fun and add the values
+                                        sum+=my_atoi(argv[i]);
+                                }
+                                avg = (float)sum/(argc-1);
+                                printf("the average of entered numbers: %g\n",avg);
+                        }
+                        else
+                        {
+                                printf("pass the required values through command line\n");
+                        }
+                        break;
+                case 3:
+
+                        str=getenv("arr");
+                        //calling the fun
+                        tok=my_strtok(str," ");
+                        while(tok!=NULL)
+                        {
+                                //call the fun
+                                num[i]=my_atoi(tok);
+                                sum += num[i];
+                                tok =my_strtok(NULL," ");
+                                i=i+1;
+                        }
+                        avg=(float )sum/i;
+                        printf("the average of enterd number: %g\n",avg);
+                        break;
+                default:
+                        printf("invalid choice\n");
+                        break;
+        }
+}
