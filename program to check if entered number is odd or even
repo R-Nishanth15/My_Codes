@@ -1,0 +1,62 @@
+Name: Nishanth R
+Date: 30.10.2021
+Description: program to check if entered number is odd or even
+Sample i/p: Enter the number:6
+Sample o/p: Entered number is positive even
+
+
+
+
+
+
+
+#include<stdio.h>
+int main()
+{
+        int num,range1=1,range2=-1,i; //initalizing range1 ,num,range2,i
+        char choice; //initalizing choice for yes or no
+        for (i=0;i<20;i++)  //using loop for getting range of given number
+        {
+                range1=range1*2;
+                range2=range2*2;
+        }
+        do
+        {
+                printf("Enter the number:");
+                scanf("%d",&num);
+                if ( num > range2 && num < range1 ) //validating entered num is in the range
+                {
+                        if( num > 0 ) //condition for positive num
+                        {
+                                if ( num % 2 == 0 ) //condition for even
+                                {
+                                        printf("Entered num is +ve even\n");
+                                }
+                                else
+                                {
+                                        printf("Entered num is +ve odd\n");
+                                }
+                        }
+
+                        else if ( num < 0 ) //condition for negative num
+                        {
+                                if ( num % 2 == 0 ) //condition for even
+                                {
+                                        printf("Entered num is -ve even\n");
+                                }      
+                                else
+                                {  
+                                        printf("Entered num is -ve odd\n");
+                                }
+                        }
+                        else if ( num == 0) //condition for zero
+                        {
+                                printf("Entered num is zero its neither odd nor even\n");
+                        }
+                }
+                else
+                        printf("Entered num is out of range\n");
+                printf("do you want to continue(y/n)?");
+                scanf(" %c", &choice);
+        }while(choice == 'y'); //condition for choice
+}   
