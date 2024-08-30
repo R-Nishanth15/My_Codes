@@ -1,0 +1,92 @@
+/*
+Name : Nishanth R
+Date : 18.11.2021
+Description: Implement your own c library
+Input :
+Output :
+Enter a character:e
+Select any option:
+ 1-is_alpha
+ 2-is_alnum
+ 3-is_ascii
+ 4-is_blank
+ Enter your choice:1
+The character e is an alpha character
+*/
+
+
+#include<stdio.h>
+int is_alpha(char ch)   // function for alpha character
+{
+        if (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z')  // condition for checking lpha character
+                return 1;
+}
+int is_alnum(char ch) // function for alpha ana numeric characters
+{
+        if(ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9' )  // condition for checking alpha numeric character
+                return 1;
+}
+int is_ascii(char ch) // function for ascii character
+{
+        if(ch >= 0 && ch <= 127)  // condition for checking ascii character
+                return 1;
+}
+int is_blank(char ch) // function for blank space
+{
+        if(ch == ' '|| ch == '\t')  // condition fof checking blank space
+                return 1;
+}
+
+int main()
+{
+        char choice;
+        do
+        {
+                char ch,alpha,alnum,ascii,blank; // initlizing the required values
+                int option;
+                printf("Enter a character:");
+                scanf("%c",&ch);
+                getchar();
+                printf("Select any option:\n 1-is_alpha\n 2-is_alnum\n 3-is_ascii\n 4-is_blank\n Enter your choice:");
+                scanf("%d",&option); // getting input from the user
+                if (option == 1)
+                {
+                        alpha = is_alpha(ch); // function calling
+                        if (alpha == 1 )
+                                printf("The character %c is an alpha character\n",ch);
+                        else
+                                printf("The character %c is not an alpha character\n",ch);
+                }
+                else if (option == 2)
+                {
+                        alnum = is_alnum(ch); // function calling
+                        if (alnum == 1)
+                                printf("The character %c is an alnum character\n",ch);
+                        else
+                                printf("The character %c is not an alnum character\n",ch);
+                }
+                else if (option == 3)
+                {
+                        ascii = is_ascii(ch); // function calling
+                        if (ascii == 1)
+                                printf("The character %c is an ascii character\n",ch);
+                        else
+                                printf("The character %c is not an ascii character\n",ch);
+                }
+                else if (option == 4)
+                {
+                        blank = is_blank(ch); // function calling
+                        if (blank == 1)
+                                printf("The character %c is an blank character\n",ch);
+                        else
+
+                                printf("The character %c is not an blank character\n",ch);
+
+                }
+                else
+                        printf("Error:Please select valid option\n");
+                printf("Do you want to continue?(y/Y)");
+                scanf(" %c",&choice);
+                getchar();
+        }while (choice == 'y'|| choice == 'Y'); // condition for choice
+}
