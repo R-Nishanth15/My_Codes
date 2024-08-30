@@ -1,0 +1,79 @@
+	
+/*
+Name : Nishanth R
+Date : 07.11.2021
+Description: Program to find which day of year
+Input : Enter the value of 'n':5
+output:
+choose first day:
+1. Sunday
+2. Monday
+3. Tuesday
+4. Wednesday
+5. Thursday
+6. Friday
+7. Saturday
+Enter the option to set first day: 1
+The 5th day is thursday
+*/
+
+#include<stdio.h>
+int main()
+{
+        char choice;
+
+        do   
+        {
+                int n; 
+                int option;  // initilizing option for choosing day
+                printf("Enter the value of 'n': ");
+                scanf("%d",&n);
+                if(n>0 && n<=365)  //range for n value
+                {
+                        printf("choose first day:\n1. Sunday\n2. Monday\n3. Tuesday\n4. Wednesday\n5. Thursday\n6. Friday\n7. Saturday\n");
+                        printf("Enter the option to set first day: ");
+                        scanf("%d",&option);  //getting option from user
+
+                                int day=option;  // initilizing day to option value
+                                for (int i=1; i<n; i++)  //running loop till n value
+                                {
+                                        day= day+1; // adding day value and update day value
+                                        if (day == 8) // if day value equal 8 then assigning day value to 1
+                                        {
+                                                day=1;
+                                        }
+                                }
+                                switch (day) // switch case for day
+                                {
+                                        case 1: printf("The %dth day is sunday\n",n);
+                                                break;
+
+                                        case 2: printf("The %dth day is monday\n",n);
+                                                break;
+
+                                        case 3: printf("The %dth day is tuesday\n",n);
+                                                break;
+
+                                        case 4: printf("The %dth day is wednesday\n",n);
+                                                break;
+
+                                        case 5: printf("The %dth day is thursday\n",n);
+                                                break;
+
+                                        case 6: printf("The %dth day is friday\n",n);
+                                                break;
+
+                                        case 7: printf("The %dth day is saturday\n",n);
+                                                break;
+                                        default:printf("Error : Invalid input first day should be > 0 and <= 7\n");
+                                                break;
+                                }
+                }
+                else
+                {
+                        printf("Error : Invalid Input, n value should be > 0 and <= 365\n");  // n value out of range
+                }
+                printf("Do you want to continue: ");
+                scanf(" %c",&choice);
+        }while(choice=='y'||choice=='Y');
+}
